@@ -1,25 +1,22 @@
 {
-  "version": 2,
   "redirects": [
-    { 
-      "source": "/dashboard", 
-      "destination": "https://app.thelabelai.com", 
-      "permanent": true 
-    },
-    { 
-      "source": "/dashboard/(.*)", 
-      "destination": "https://app.thelabelai.com/$1", 
-      "permanent": true 
-    }
+    { "source": "/dashboard", "destination": "https://app.thelabelai.com", "permanent": true }
   ],
   "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "accelerometer=(), autoplay=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=*, geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), clipboard-write=(self)" }
       ]
     }
   ]
