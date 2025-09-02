@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './App.css'
+import LoginModal from './components/LoginModal.jsx'
+import SignupModal from './components/SignupModal.jsx'
 
 function App() {
   const [showLogin, setShowLogin] = useState(false)
@@ -126,46 +128,24 @@ function App() {
         </div>
       </footer>
 
-      {/* Login Modal */}
-      {showLogin && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowLogin(false)} />
-          <div className="relative w-full max-w-md mx-4 glassmorphism rounded-2xl p-8">
-            <button onClick={() => setShowLogin(false)} className="absolute top-4 right-4 text-gray-400 hover:text-white">×</button>
-            <h2 className="text-3xl font-bold text-white mb-6 text-center">Welcome Back</h2>
-            <form className="space-y-4">
-              <input type="email" placeholder="Email" className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-gray-400" />
-              <input type="password" placeholder="Password" className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-gray-400" />
-              <button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg">Sign In</button>
-            </form>
-            <p className="text-center mt-4 text-gray-300">
-              Don't have an account? 
-              <button onClick={() => { setShowLogin(false); setShowSignup(true); }} className="text-blue-400 hover:text-blue-300 ml-1">Sign up</button>
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* Signup Modal */}
-      {showSignup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowSignup(false)} />
-          <div className="relative w-full max-w-md mx-4 glassmorphism rounded-2xl p-8">
-            <button onClick={() => setShowSignup(false)} className="absolute top-4 right-4 text-gray-400 hover:text-white">×</button>
-            <h2 className="text-3xl font-bold text-white mb-6 text-center">Join theLABEL</h2>
-            <form className="space-y-4">
-              <input type="text" placeholder="Artist Name" className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-gray-400" />
-              <input type="email" placeholder="Email" className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-gray-400" />
-              <input type="password" placeholder="Password" className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-gray-400" />
-              <button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg">Create Account</button>
-            </form>
-            <p className="text-center mt-4 text-gray-300">
-              Already have an account? 
-              <button onClick={() => { setShowSignup(false); setShowLogin(true); }} className="text-blue-400 hover:text-blue-300 ml-1">Sign in</button>
-            </p>
-          </div>
-        </div>
-      )}
+      {/* Enhanced Modals */}
+      <LoginModal 
+        isOpen={showLogin}
+        onClose={() => setShowLogin(false)}
+        onSwitchToSignup={() => {
+          setShowLogin(false)
+          setShowSignup(true)
+        }}
+      />
+      
+      <SignupModal 
+        isOpen={showSignup}
+        onClose={() => setShowSignup(false)}
+        onSwitchToLogin={() => {
+          setShowSignup(false)
+          setShowLogin(true)
+        }}
+      />
     </div>
   )
 }

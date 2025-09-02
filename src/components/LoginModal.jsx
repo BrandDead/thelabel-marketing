@@ -15,23 +15,43 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
   })
   const [isAuthenticating, setIsAuthenticating] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [error, setError] = useState('')
 
   if (!isOpen) return null
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setError('')
+    
+    // Basic validation
+    if (!formData.email || !formData.password) {
+      setError('Please fill in all fields')
+      return
+    }
+
     setIsAuthenticating(true)
     
-    // Simulate authentication delay
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    setIsAuthenticating(false)
-    setIsAuthenticated(true)
-    
-    // Redirect to dashboard after animation completes
-    setTimeout(() => {
-      window.location.href = 'https://app.thelabelai.com'
-    }, 2500)
+    try {
+      // Simulate authentication delay
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      
+      // For now, accept any email/password combination for testing
+      // In production, this would call your actual auth API
+      if (formData.email && formData.password) {
+        setIsAuthenticating(false)
+        setIsAuthenticated(true)
+        
+        // Redirect to dashboard after animation completes
+        setTimeout(() => {
+          window.location.href = 'https://app.thelabelai.com/dashboard'
+        }, 2000)
+      } else {
+        throw new Error('Invalid credentials')
+      }
+    } catch (err) {
+      setError('Login failed. Please try again.')
+      setIsAuthenticating(false)
+    }
   }
 
   const handleInputChange = (e) => {
@@ -39,6 +59,8 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
       ...formData,
       [e.target.name]: e.target.value
     })
+    // Clear error when user starts typing
+    if (error) setError('')
   }
 
   const handlePasswordChange = (password, strength) => {
@@ -100,6 +122,18 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
           Sign in to access your dashboard
         </motion.p>
       </div>
+
+      {/* Error Message */}
+      {error && (
+        <motion.div
+          className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-300 text-sm text-center"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          {error}
+        </motion.div>
+      )}
 
       {/* Form */}
       <motion.form
@@ -198,12 +232,20 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
         <Button 
           variant="outline"
           className="w-full border-white/20 text-white hover:bg-white/10"
+          onClick={() => {
+            // For now, redirect directly to dashboard
+            window.location.href = 'https://app.thelabelai.com/dashboard'
+          }}
         >
           Continue with Google
         </Button>
         <Button 
           variant="outline"
           className="w-full border-white/20 text-white hover:bg-white/10"
+          onClick={() => {
+            // For now, redirect directly to dashboard
+            window.location.href = 'https://app.thelabelai.com/dashboard'
+          }}
         >
           Continue with Apple
         </Button>

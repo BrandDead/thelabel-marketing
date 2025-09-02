@@ -1,12 +1,15 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { Button } from '../components/ui/button.jsx'
 import { Input } from '../components/ui/input.jsx'
 import { Label } from '../components/ui/label.jsx'
 import { Checkbox } from '../components/ui/checkbox.jsx'
-import { X, Eye, EyeOff, Mail, Lock, User, Music } from 'lucide-react'
+import { X, Mail, User, Music } from 'lucide-react'
+import AnimatedLogo from '../components/ui/AnimatedLogo.jsx'
+import AuthCard from '../components/ui/AuthCard.jsx'
+import AnimatedPasswordField from '../components/ui/AnimatedPasswordField.jsx'
 
 const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
-  const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -16,15 +19,45 @@ const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     agreeToTerms: false,
     subscribeNewsletter: true
   })
+  const [isAuthenticating, setIsAuthenticating] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [error, setError] = useState('')
 
   if (!isOpen) return null
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Handle signup logic here
-    console.log('Signup attempt:', formData)
-    // Redirect to dashboard
-    window.location.href = 'https://app.thelabelai.com'
+    setError('')
+    
+    // Basic validation
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.artistName) {
+      setError('Please fill in all required fields')
+      return
+    }
+
+    if (!formData.agreeToTerms) {
+      setError('You must agree to the terms and conditions')
+      return
+    }
+
+    setIsAuthenticating(true)
+    
+    try {
+      // Simulate signup delay
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      
+      // For now, accept any valid form data for testing
+      setIsAuthenticating(false)
+      setIsAuthenticated(true)
+      
+      // Redirect to dashboard after animation completes
+      setTimeout(() => {
+        window.location.href = 'https://app.thelabelai.com/dashboard'
+      }, 2000)
+    } catch (err) {
+      setError('Signup failed. Please try again.')
+      setIsAuthenticating(false)
+    }
   }
 
   const handleInputChange = (e) => {
@@ -33,209 +66,264 @@ const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
       ...formData,
       [name]: type === 'checkbox' ? checked : value
     })
+    // Clear error when user starts typing
+    if (error) setError('')
+  }
+
+  const handlePasswordChange = (password, strength) => {
+    // This will trigger logo animations based on password input
+  }
+
+  const handleAnimationComplete = () => {
+    // Animation completed, can perform cleanup if needed
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
-      <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+    <AuthCard
+      isVisible={isOpen}
+      isAuthenticating={isAuthenticating}
+      isAuthenticated={isAuthenticated}
+      onAnimationComplete={handleAnimationComplete}
+    >
+      {/* Close Button */}
+      <motion.button
         onClick={onClose}
-      />
-      
-      {/* Modal */}
-      <div className="relative w-full max-w-md mx-4 glassmorphism rounded-2xl p-8 max-h-[90vh] overflow-y-auto">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+        className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-20"
+        whileHover={{ scale: 1.1, rotate: 90 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ duration: 0.2 }}
+      >
+        <X size={24} />
+      </motion.button>
+
+      {/* Header with Animated Logo */}
+      <div className="text-center mb-8">
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <X size={24} />
-        </button>
+          <AnimatedLogo
+            isAuthenticating={isAuthenticating}
+            isAuthenticated={isAuthenticated}
+            passwordLength={formData.password.length}
+            className="text-4xl mb-4"
+          />
+        </motion.div>
+        
+        <motion.h2
+          className="text-3xl font-bold text-white mb-2"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          Join theLABEL
+        </motion.h2>
+        
+        <motion.p
+          className="text-gray-300"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          Start your journey to musical freedom
+        </motion.p>
+      </div>
 
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-white mb-2">Join theLABEL</h2>
-          <p className="text-gray-300">Start your journey to musical freedom</p>
-        </div>
+      {/* Error Message */}
+      {error && (
+        <motion.div
+          className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-300 text-sm text-center"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          {error}
+        </motion.div>
+      )}
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Name Fields */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="firstName" className="text-white">First Name</Label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                <Input
-                  id="firstName"
-                  name="firstName"
-                  type="text"
-                  placeholder="John"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
-                  required
-                />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="lastName" className="text-white">Last Name</Label>
-              <Input
-                id="lastName"
-                name="lastName"
-                type="text"
-                placeholder="Doe"
-                value={formData.lastName}
-                onChange={handleInputChange}
-                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
-                required
-              />
-            </div>
-          </div>
-
-          {/* Artist Name */}
+      {/* Form */}
+      <motion.form
+        onSubmit={handleSubmit}
+        className="space-y-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+      >
+        {/* Name Fields */}
+        <motion.div
+          className="grid grid-cols-2 gap-4"
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.0 }}
+        >
           <div className="space-y-2">
-            <Label htmlFor="artistName" className="text-white">Artist Name</Label>
+            <Label htmlFor="firstName" className="text-white">First Name</Label>
             <div className="relative">
-              <Music className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <Input
-                id="artistName"
-                name="artistName"
+                id="firstName"
+                name="firstName"
                 type="text"
-                placeholder="Your stage name"
-                value={formData.artistName}
+                placeholder="John"
+                value={formData.firstName}
                 onChange={handleInputChange}
                 className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
                 required
               />
             </div>
           </div>
-
-          {/* Email Field */}
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-white">Email</Label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="your@email.com"
-                value={formData.email}
-                onChange={handleInputChange}
-                className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
-                required
-              />
-            </div>
+            <Label htmlFor="lastName" className="text-white">Last Name</Label>
+            <Input
+              id="lastName"
+              name="lastName"
+              type="text"
+              placeholder="Doe"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+              required
+            />
           </div>
+        </motion.div>
 
-          {/* Password Field */}
-          <div className="space-y-2">
-            <Label htmlFor="password" className="text-white">Password</Label>
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              <Input
-                id="password"
-                name="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Create a strong password"
-                value={formData.password}
-                onChange={handleInputChange}
-                className="pl-10 pr-10 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
-                required
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
-              >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
-            </div>
-            <p className="text-xs text-gray-400">Must be at least 8 characters</p>
+        {/* Artist Name */}
+        <motion.div
+          className="space-y-2"
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+        >
+          <Label htmlFor="artistName" className="text-white">Artist Name</Label>
+          <div className="relative">
+            <Music className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <Input
+              id="artistName"
+              name="artistName"
+              type="text"
+              placeholder="Your Artist Name"
+              value={formData.artistName}
+              onChange={handleInputChange}
+              className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+              required
+            />
           </div>
+        </motion.div>
 
-          {/* Checkboxes */}
-          <div className="space-y-4">
-            <div className="flex items-start space-x-3">
-              <Checkbox
-                id="agreeToTerms"
-                name="agreeToTerms"
-                checked={formData.agreeToTerms}
-                onCheckedChange={(checked) => setFormData({...formData, agreeToTerms: checked})}
-                className="mt-1"
-                required
-              />
-              <Label htmlFor="agreeToTerms" className="text-sm text-gray-300 leading-relaxed">
-                I agree to the{' '}
-                <a href="#" className="text-[#29C5F6] hover:text-[#29C5F6]/80">Terms of Service</a>
-                {' '}and{' '}
-                <a href="#" className="text-[#29C5F6] hover:text-[#29C5F6]/80">Privacy Policy</a>
-              </Label>
-            </div>
-            
-            <div className="flex items-start space-x-3">
-              <Checkbox
-                id="subscribeNewsletter"
-                name="subscribeNewsletter"
-                checked={formData.subscribeNewsletter}
-                onCheckedChange={(checked) => setFormData({...formData, subscribeNewsletter: checked})}
-                className="mt-1"
-              />
-              <Label htmlFor="subscribeNewsletter" className="text-sm text-gray-300 leading-relaxed">
-                Send me updates about new features and industry insights
-              </Label>
-            </div>
+        {/* Email Field */}
+        <motion.div
+          className="space-y-2"
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.4 }}
+        >
+          <Label htmlFor="email" className="text-white">Email</Label>
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="your@email.com"
+              value={formData.email}
+              onChange={handleInputChange}
+              className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+              required
+            />
           </div>
+        </motion.div>
 
-          {/* Submit Button */}
+        {/* Password Field */}
+        <motion.div
+          className="space-y-2"
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.6 }}
+        >
+          <Label htmlFor="password" className="text-white">Password</Label>
+          <AnimatedPasswordField
+            value={formData.password}
+            onChange={(e) => handleInputChange(e)}
+            placeholder="Create a strong password"
+            onPasswordChange={handlePasswordChange}
+          />
+        </motion.div>
+
+        {/* Checkboxes */}
+        <motion.div
+          className="space-y-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.8 }}
+        >
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="agreeToTerms"
+              name="agreeToTerms"
+              checked={formData.agreeToTerms}
+              onChange={handleInputChange}
+              required
+            />
+            <Label htmlFor="agreeToTerms" className="text-sm text-gray-300">
+              I agree to the{' '}
+              <a href="#" className="text-[#29C5F6] hover:text-[#29C5F6]/80">
+                Terms of Service
+              </a>{' '}
+              and{' '}
+              <a href="#" className="text-[#29C5F6] hover:text-[#29C5F6]/80">
+                Privacy Policy
+              </a>
+            </Label>
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="subscribeNewsletter"
+              name="subscribeNewsletter"
+              checked={formData.subscribeNewsletter}
+              onChange={handleInputChange}
+            />
+            <Label htmlFor="subscribeNewsletter" className="text-sm text-gray-300">
+              Subscribe to our newsletter for updates and tips
+            </Label>
+          </div>
+        </motion.div>
+
+        {/* Submit Button */}
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 2.0 }}
+        >
           <Button 
             type="submit"
-            disabled={!formData.agreeToTerms}
-            className="w-full bg-[#FF5000] hover:bg-[#FF5000]/80 text-white py-3 text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-[#FF5000] hover:bg-[#FF5000]/80 text-white py-3 text-lg font-semibold"
+            disabled={isAuthenticating}
           >
-            Create Account
+            {isAuthenticating ? 'Creating Account...' : 'Create Account'}
           </Button>
-        </form>
+        </motion.div>
+      </motion.form>
 
-        {/* Divider */}
-        <div className="my-6 flex items-center">
-          <div className="flex-1 border-t border-white/20"></div>
-          <span className="px-4 text-gray-400 text-sm">or</span>
-          <div className="flex-1 border-t border-white/20"></div>
-        </div>
-
-        {/* Social Signup */}
-        <div className="space-y-3">
-          <Button 
-            variant="outline"
-            className="w-full border-white/20 text-white hover:bg-white/10"
+      {/* Switch to Login */}
+      <motion.div
+        className="text-center mt-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 2.2 }}
+      >
+        <p className="text-gray-300">
+          Already have an account?{' '}
+          <button
+            onClick={onSwitchToLogin}
+            className="text-[#29C5F6] hover:text-[#29C5F6]/80 font-semibold"
           >
-            Continue with Google
-          </Button>
-          <Button 
-            variant="outline"
-            className="w-full border-white/20 text-white hover:bg-white/10"
-          >
-            Continue with Apple
-          </Button>
-        </div>
-
-        {/* Switch to Login */}
-        <div className="text-center mt-6">
-          <p className="text-gray-300">
-            Already have an account?{' '}
-            <button
-              onClick={onSwitchToLogin}
-              className="text-[#29C5F6] hover:text-[#29C5F6]/80 font-semibold"
-            >
-              Sign in
-            </button>
-          </p>
-        </div>
-      </div>
-    </div>
+            Sign in
+          </button>
+        </p>
+      </motion.div>
+    </AuthCard>
   )
 }
 

@@ -3,6 +3,19 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Reset cursor to default - fix cursor lag */
+* {
+  cursor: default !important;
+}
+
+input, button, a, [role="button"], [tabindex] {
+  cursor: pointer !important;
+}
+
+input[type="text"], input[type="email"], input[type="password"], textarea {
+  cursor: text !important;
+}
+
 /* theLABEL Custom Styles */
 @keyframes logoCharge {
   0% { transform: scale(0.8) translateY(20px); opacity: 0; }
