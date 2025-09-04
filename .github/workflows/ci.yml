@@ -1,0 +1,78 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run nightly at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'pnpm'
+    
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+    
+    - name: Lint
+      run: pnpm lint
+    
+    - name: Build
+      run: pnpm build
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: build-artifacts
+        path: dist/
+        retention-days: 7
+
+  health-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Check marketing site health
+      run: |
+        echo "🏥 Marketing Site Health Check"
+        echo "=============================="
+        
+        # Check homepage
+        echo "Checking homepage..."
+        curl -s -o /dev/null -w "%{http_code}" https://thelabelai.com
+        echo " - Homepage status"
+        
+        # Check login redirect
+        echo "Checking login redirect..."
+        curl -s -I https://thelabelai.com/login | grep -i "location:"
+        
+        # Check signup redirect  
+        echo "Checking signup redirect..."
+        curl -s -I https://thelabelai.com/signup | grep -i "location:"
+        
+        # Check WWW redirect
+        echo "Checking WWW redirect..."
+        curl -s -I https://www.thelabelai.com | grep -i "location:"
+        
+        echo "✅ Marketing site health check complete"
+    
+    - name: Upload health check results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: marketing-health-check
+        path: marketing-health-results.txt
+        retention-days: 30
