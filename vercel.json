@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/login", "destination": "https://app.thelabelai.com/login", "permanent": true },
+    { "source": "/signup", "destination": "https://app.thelabelai.com/login", "permanent": true }
+  ]
+}
