@@ -1,10 +1,6 @@
-import { useState } from 'react'
 import './App.css'
-import SignupModal from './components/SignupModal.jsx'
 
 function App() {
-  const [showSignup, setShowSignup] = useState(false)
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Header */}
@@ -22,7 +18,7 @@ function App() {
                 Sign In
               </button>
               <button 
-                onClick={() => setShowSignup(true)}
+                onClick={() => window.location.href = 'https://app.thelabelai.com/login'}
                 className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition-colors"
               >
                 GET STARTED FREE
@@ -48,7 +44,7 @@ function App() {
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
             <button 
-              onClick={() => setShowSignup(true)}
+              onClick={() => window.location.href = 'https://app.thelabelai.com/login'}
               className="bg-orange-500 hover:bg-orange-600 text-white text-xl px-12 py-6 rounded-lg transition-colors"
             >
               SIGN UP FREE
@@ -119,16 +115,6 @@ function App() {
           </div>
         </div>
       </footer>
-
-      {/* Signup Modal */}
-      <SignupModal 
-        isOpen={showSignup}
-        onClose={() => setShowSignup(false)}
-        onSwitchToLogin={() => {
-          setShowSignup(false)
-          window.location.href = 'https://app.thelabelai.com/login'
-        }}
-      />
     </div>
   )
 }
