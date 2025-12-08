@@ -73,22 +73,11 @@ const AuthCard = ({
     <AnimatePresence mode="wait" onExitComplete={onAnimationComplete}>
       {isVisible && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
           variants={backdropVariants}
           initial="hidden"
           animate="visible"
           exit="exit"
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '1rem'
-          }}
         >
           {/* Backdrop with blur effect */}
           <motion.div 
@@ -96,9 +85,9 @@ const AuthCard = ({
             variants={backdropVariants}
           />
           
-          {/* Perfectly Centered Auth Card */}
+          {/* Centered Auth Card */}
           <motion.div
-            className="relative w-full max-w-md mx-auto"
+            className="relative w-full max-w-md"
             variants={cardVariants}
             initial="hidden"
             animate={isAuthenticating ? "authenticating" : "visible"}
@@ -107,15 +96,6 @@ const AuthCard = ({
               if (isExiting) {
                 onAnimationComplete()
               }
-            }}
-            style={{
-              position: 'relative',
-              width: '100%',
-              maxWidth: '28rem',
-              margin: '0 auto',
-              transform: 'translate(-50%, -50%)',
-              left: '50%',
-              top: '50%'
             }}
           >
             {/* Card Container */}
