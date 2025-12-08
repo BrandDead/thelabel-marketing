@@ -1,10 +1,8 @@
 import { useState } from 'react'
 import './App.css'
-import LoginModal from './components/LoginModal.jsx'
 import SignupModal from './components/SignupModal.jsx'
 
 function App() {
-  const [showLogin, setShowLogin] = useState(false)
   const [showSignup, setShowSignup] = useState(false)
 
   return (
@@ -18,7 +16,7 @@ function App() {
             </div>
             <div className="flex items-center space-x-4">
               <button 
-                onClick={() => setShowLogin(true)}
+                onClick={() => window.location.href = 'https://app.thelabelai.com/login'}
                 className="text-white hover:text-orange-500 transition-colors"
               >
                 Sign In
@@ -28,12 +26,6 @@ function App() {
                 className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition-colors"
               >
                 GET STARTED FREE
-              </button>
-              <button 
-                onClick={() => window.location.href = 'https://app.thelabelai.com/dashboard'}
-                className="border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white px-4 py-2 rounded-lg transition-colors"
-              >
-                Dashboard
               </button>
             </div>
           </div>
@@ -128,22 +120,13 @@ function App() {
         </div>
       </footer>
 
-      {/* Enhanced Modals */}
-      <LoginModal 
-        isOpen={showLogin}
-        onClose={() => setShowLogin(false)}
-        onSwitchToSignup={() => {
-          setShowLogin(false)
-          setShowSignup(true)
-        }}
-      />
-      
+      {/* Signup Modal */}
       <SignupModal 
         isOpen={showSignup}
         onClose={() => setShowSignup(false)}
         onSwitchToLogin={() => {
           setShowSignup(false)
-          setShowLogin(true)
+          window.location.href = 'https://app.thelabelai.com/login'
         }}
       />
     </div>
@@ -151,4 +134,3 @@ function App() {
 }
 
 export default App
-
