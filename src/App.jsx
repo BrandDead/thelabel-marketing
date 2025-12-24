@@ -1,6 +1,43 @@
+import { useState } from 'react'
 import './App.css'
+import Pricing from './components/Pricing.jsx'
+import SignupModal from './components/SignupModal.jsx'
+import LoginModal from './components/LoginModal.jsx'
+import { BILLING_PERIODS } from './lib/plans.js'
 
 function App() {
+  const [isSignupOpen, setIsSignupOpen] = useState(false)
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const [selectedPlan, setSelectedPlan] = useState('free')
+  const [billingPeriod, setBillingPeriod] = useState(BILLING_PERIODS.MONTHLY)
+
+  const handleSignupClick = (planId = 'free', period = BILLING_PERIODS.MONTHLY) => {
+    setSelectedPlan(planId)
+    setBillingPeriod(period)
+    setIsSignupOpen(true)
+    setIsLoginOpen(false)
+  }
+
+  const handleLoginClick = () => {
+    setIsLoginOpen(true)
+    setIsSignupOpen(false)
+  }
+
+  const handleSwitchToLogin = () => {
+    setIsSignupOpen(false)
+    setIsLoginOpen(true)
+  }
+
+  const handleSwitchToSignup = () => {
+    setIsLoginOpen(false)
+    setIsSignupOpen(true)
+  }
+
+  const closeModals = () => {
+    setIsSignupOpen(false)
+    setIsLoginOpen(false)
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Header */}
@@ -8,17 +45,24 @@ function App() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="text-2xl font-bold text-white">theLABEL</div>
+              <a href="/" className="text-2xl font-bold text-white hover:text-orange-500 transition-colors">
+                theLABEL
+              </a>
             </div>
+            <nav className="hidden md:flex items-center space-x-8">
+              <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
+              <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
+              <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
+            </nav>
             <div className="flex items-center space-x-4">
               <button 
-                onClick={() => window.location.href = 'https://app.thelabelai.com/login'}
+                onClick={handleLoginClick}
                 className="text-white hover:text-orange-500 transition-colors"
               >
                 Sign In
               </button>
               <button 
-                onClick={() => window.location.href = 'https://app.thelabelai.com/login'}
+                onClick={() => handleSignupClick('free')}
                 className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition-colors"
               >
                 GET STARTED FREE
@@ -44,14 +88,17 @@ function App() {
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
             <button 
-              onClick={() => window.location.href = 'https://app.thelabelai.com/login'}
-              className="bg-orange-500 hover:bg-orange-600 text-white text-xl px-12 py-6 rounded-lg transition-colors"
+              onClick={() => handleSignupClick('free')}
+              className="bg-orange-500 hover:bg-orange-600 text-white text-xl px-12 py-6 rounded-lg transition-colors electric-pulse"
             >
               SIGN UP FREE
             </button>
-            <button className="border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white text-xl px-12 py-6 rounded-lg transition-colors">
-              Watch Demo
-            </button>
+            <a 
+              href="#pricing"
+              className="border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white text-xl px-12 py-6 rounded-lg transition-colors"
+            >
+              View Plans
+            </a>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
@@ -74,7 +121,7 @@ function App() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gradient-to-b from-slate-900 to-purple-900">
+      <section id="features" className="py-20 bg-gradient-to-b from-slate-900 to-purple-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-black text-white mb-6 neon-glow">
@@ -103,18 +150,89 @@ function App() {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <Pricing onSignupClick={handleSignupClick} />
+
+      {/* About Section */}
+      <section id="about" className="py-20 bg-gradient-to-b from-slate-900 to-purple-900">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-5xl font-black text-white mb-6 neon-glow">
+              BUILT BY ARTISTS, FOR ARTISTS
+            </h2>
+            <p className="text-xl text-gray-300 mb-8">
+              We've been in the trenches. We've seen the contracts. We've watched talented artists 
+              get exploited by an industry that profits from their creativity while leaving them with crumbs.
+            </p>
+            <p className="text-xl text-blue-400 mb-8 italic">
+              That ends now.
+            </p>
+            <p className="text-lg text-gray-300">
+              theLABEL is the great equalizer. The same tools, connections, and strategies that 
+              major labels use to build superstars - now in your hands. No gatekeepers. No middlemen. 
+              Just you and your art, amplified by AI that works 24/7 to make you successful.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-slate-900 border-t border-white/10 py-12">
-        <div className="container mx-auto px-4 text-center">
-          <div className="text-2xl font-bold text-white mb-4">theLABEL</div>
-          <p className="text-gray-400 mb-6">
-            Empowering independent artists with AI-powered tools and industry connections.
-          </p>
-          <div className="text-gray-400 text-sm">
-            © 2024 theLABEL. All rights reserved. Built by artists, for artists.
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="text-2xl font-bold text-white mb-4">theLABEL</div>
+              <p className="text-gray-400">
+                Empowering independent artists with AI-powered tools and industry connections.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Product</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#features" className="hover:text-white transition-colors">Features</a></li>
+                <li><a href="#pricing" className="hover:text-white transition-colors">Pricing</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Roadmap</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Company</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#about" className="hover:text-white transition-colors">About</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="/terms" className="hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-white/10 pt-8 text-center">
+            <p className="text-gray-400 text-sm">
+              © {new Date().getFullYear()} theLABEL. All rights reserved. Built by artists, for artists.
+            </p>
           </div>
         </div>
       </footer>
+
+      {/* Modals */}
+      <SignupModal 
+        isOpen={isSignupOpen}
+        onClose={closeModals}
+        onSwitchToLogin={handleSwitchToLogin}
+        selectedPlan={selectedPlan}
+        billingPeriod={billingPeriod}
+      />
+      
+      <LoginModal 
+        isOpen={isLoginOpen}
+        onClose={closeModals}
+        onSwitchToSignup={handleSwitchToSignup}
+      />
     </div>
   )
 }

@@ -3,11 +3,22 @@ import { motion } from 'framer-motion'
 import { Button } from '../components/ui/button.jsx'
 import { Input } from '../components/ui/input.jsx'
 import { Label } from '../components/ui/label.jsx'
-import { X, Mail } from 'lucide-react'
+import { X, Mail, Loader2 } from 'lucide-react'
 import AnimatedLogo from '../components/ui/AnimatedLogo.jsx'
 import AuthCard from '../components/ui/AuthCard.jsx'
 import AnimatedPasswordField from '../components/ui/AnimatedPasswordField.jsx'
+import { signInUser, supabase } from '../lib/supabase.js'
 
+/**
+ * LoginModal Component
+ * 
+ * Handles user authentication with Supabase.
+ * 
+ * @param {Object} props
+ * @param {boolean} props.isOpen - Whether the modal is open
+ * @param {Function} props.onClose - Callback to close the modal
+ * @param {Function} props.onSwitchToSignup - Callback to switch to signup modal
+ */
 const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
   const [formData, setFormData] = useState({
     email: '',
@@ -32,25 +43,86 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
     setIsAuthenticating(true)
     
     try {
-      // Simulate authentication delay
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      
-      // For now, accept any email/password combination for testing
-      // In production, this would call your actual auth API
-      if (formData.email && formData.password) {
-        setIsAuthenticating(false)
-        setIsAuthenticated(true)
-        
-        // Redirect to dashboard after animation completes
-        setTimeout(() => {
-          window.location.href = 'https://app.thelabelai.com/dashboard'
-        }, 2000)
-      } else {
-        throw new Error('Invalid credentials')
+      const { user, session, error: signInError } = await signInUser(
+        formData.email,
+        formData.password
+      )
+
+      if (signInError) {
+        throw new Error(signInError.message || 'Invalid email or password')
       }
+
+      if (!user) {
+        throw new Error('Login failed. Please try again.')
+      }
+
+      setIsAuthenticated(true)
+      
+      // Redirect to dashboard after animation completes
+      setTimeout(() => {
+        window.location.href = 'https://app.thelabelai.com/dashboard'
+      }, 1500)
     } catch (err) {
-      setError('Login failed. Please try again.')
+      console.error('Login error:', err)
+      setError(err.message || 'Login failed. Please try again.')
       setIsAuthenticating(false)
+    }
+  }
+
+  const handleGoogleLogin = async () => {
+    try {
+      setIsAuthenticating(true)
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: 'https://app.thelabelai.com/dashboard'
+        }
+      })
+      
+      if (error) throw error
+    } catch (err) {
+      console.error('Google login error:', err)
+      setError('Google login failed. Please try again.')
+      setIsAuthenticating(false)
+    }
+  }
+
+  const handleAppleLogin = async () => {
+    try {
+      setIsAuthenticating(true)
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'apple',
+        options: {
+          redirectTo: 'https://app.thelabelai.com/dashboard'
+        }
+      })
+      
+      if (error) throw error
+    } catch (err) {
+      console.error('Apple login error:', err)
+      setError('Apple login failed. Please try again.')
+      setIsAuthenticating(false)
+    }
+  }
+
+  const handleForgotPassword = async () => {
+    if (!formData.email) {
+      setError('Please enter your email address first')
+      return
+    }
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(formData.email, {
+        redirectTo: 'https://app.thelabelai.com/reset-password'
+      })
+      
+      if (error) throw error
+      
+      setError('') // Clear any existing error
+      alert('Password reset email sent! Check your inbox.')
+    } catch (err) {
+      console.error('Password reset error:', err)
+      setError('Failed to send reset email. Please try again.')
     }
   }
 
@@ -59,16 +131,15 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
       ...formData,
       [e.target.name]: e.target.value
     })
-    // Clear error when user starts typing
     if (error) setError('')
   }
 
   const handlePasswordChange = (password, strength) => {
-    // This will trigger logo animations based on password input
+    // Password strength feedback
   }
 
   const handleAnimationComplete = () => {
-    // Animation completed, can perform cleanup if needed
+    // Animation completed
   }
 
   return (
@@ -85,6 +156,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
         whileHover={{ scale: 1.1, rotate: 90 }}
         whileTap={{ scale: 0.9 }}
         transition={{ duration: 0.2 }}
+        disabled={isAuthenticating}
       >
         <X size={24} />
       </motion.button>
@@ -162,6 +234,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
               onChange={handleInputChange}
               className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
               required
+              disabled={isAuthenticating}
             />
           </div>
         </motion.div>
@@ -179,6 +252,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
             onChange={(e) => handleInputChange(e)}
             placeholder="Enter your password"
             onPasswordChange={handlePasswordChange}
+            disabled={isAuthenticating}
           />
         </motion.div>
 
@@ -189,9 +263,14 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.4 }}
         >
-          <a href="#" className="text-[#29C5F6] hover:text-[#29C5F6]/80 text-sm">
+          <button 
+            type="button"
+            onClick={handleForgotPassword}
+            className="text-[#29C5F6] hover:text-[#29C5F6]/80 text-sm"
+            disabled={isAuthenticating}
+          >
             Forgot password?
-          </a>
+          </button>
         </motion.div>
 
         {/* Submit Button */}
@@ -205,7 +284,14 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
             className="w-full bg-[#FF5000] hover:bg-[#FF5000]/80 text-white py-3 text-lg font-semibold"
             disabled={isAuthenticating}
           >
-            {isAuthenticating ? 'Authenticating...' : 'Sign In'}
+            {isAuthenticating ? (
+              <span className="flex items-center justify-center gap-2">
+                <Loader2 className="w-5 h-5 animate-spin" />
+                Signing In...
+              </span>
+            ) : (
+              'Sign In'
+            )}
           </Button>
         </motion.div>
       </motion.form>
@@ -232,21 +318,26 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
         <Button 
           variant="outline"
           className="w-full border-white/20 text-white hover:bg-white/10"
-          onClick={() => {
-            // For now, redirect directly to dashboard
-            window.location.href = 'https://app.thelabelai.com/dashboard'
-          }}
+          onClick={handleGoogleLogin}
+          disabled={isAuthenticating}
         >
+          <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
           Continue with Google
         </Button>
         <Button 
           variant="outline"
           className="w-full border-white/20 text-white hover:bg-white/10"
-          onClick={() => {
-            // For now, redirect directly to dashboard
-            window.location.href = 'https://app.thelabelai.com/dashboard'
-          }}
+          onClick={handleAppleLogin}
+          disabled={isAuthenticating}
         >
+          <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+          </svg>
           Continue with Apple
         </Button>
       </motion.div>
@@ -263,6 +354,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
           <button
             onClick={onSwitchToSignup}
             className="text-[#29C5F6] hover:text-[#29C5F6]/80 font-semibold"
+            disabled={isAuthenticating}
           >
             Sign up free
           </button>
@@ -273,4 +365,3 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
 }
 
 export default LoginModal
-
