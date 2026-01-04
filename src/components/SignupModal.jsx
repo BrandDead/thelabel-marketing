@@ -36,6 +36,8 @@ const SignupModal = ({
     email: '',
     password: '',
     artistName: '',
+    genre: '',
+    location: '',
     agreeToTerms: false,
     subscribeNewsletter: true
   })
@@ -66,7 +68,7 @@ const SignupModal = ({
     setError('')
     
     // Basic validation
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.artistName) {
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.artistName || !formData.genre || !formData.location) {
       setError('Please fill in all required fields')
       return
     }
@@ -91,7 +93,9 @@ const SignupModal = ({
         password: formData.password,
         firstName: formData.firstName,
         lastName: formData.lastName,
-        artistName: formData.artistName
+        artistName: formData.artistName,
+        genre: formData.genre,
+        location: formData.location
       })
 
       if (signupError) {
@@ -331,6 +335,38 @@ const SignupModal = ({
                 value={formData.artistName}
                 onChange={handleInputChange}
                 className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+                required
+                disabled={isAuthenticating}
+              />
+            </div>
+          </div>
+
+          {/* Genre and Location */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="genre" className="text-white">Genre</Label>
+              <Input
+                id="genre"
+                name="genre"
+                type="text"
+                placeholder="Hip Hop"
+                value={formData.genre}
+                onChange={handleInputChange}
+                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+                required
+                disabled={isAuthenticating}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="location" className="text-white">Location</Label>
+              <Input
+                id="location"
+                name="location"
+                type="text"
+                placeholder="Los Angeles, CA"
+                value={formData.location}
+                onChange={handleInputChange}
+                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
                 required
                 disabled={isAuthenticating}
               />

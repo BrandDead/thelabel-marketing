@@ -29,7 +29,7 @@ export const supabase = createClient(
  * @param {Object} userData - User registration data
  * @returns {Promise<{user, session, error}>}
  */
-export const signUpUser = async ({ email, password, firstName, lastName, artistName }) => {
+export const signUpUser = async ({ email, password, firstName, lastName, artistName, genre, location }) => {
   try {
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -39,7 +39,9 @@ export const signUpUser = async ({ email, password, firstName, lastName, artistN
           first_name: firstName,
           last_name: lastName,
           artist_name: artistName,
-          full_name: `${firstName} ${lastName}`
+          genre: genre,
+          location: location,
+          full_name: artistName || `${firstName} ${lastName}`
         },
         emailRedirectTo: `${window.location.origin}/auth/callback`
       }
