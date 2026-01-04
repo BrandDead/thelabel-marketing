@@ -361,7 +361,7 @@ const SignupModal = ({
             <Label htmlFor="password" className="text-white">Password</Label>
             <AnimatedPasswordField
               value={formData.password}
-              onChange={(e) => handleInputChange(e)}
+              onChange={handleInputChange}
               placeholder="Create a strong password (min 8 chars)"
               onPasswordChange={handlePasswordChange}
               disabled={isAuthenticating}

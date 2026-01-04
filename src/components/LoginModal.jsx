@@ -249,7 +249,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
           <Label htmlFor="password" className="text-white">Password</Label>
           <AnimatedPasswordField
             value={formData.password}
-            onChange={(e) => handleInputChange(e)}
+            onChange={handleInputChange}
             placeholder="Enter your password"
             onPasswordChange={handlePasswordChange}
             disabled={isAuthenticating}

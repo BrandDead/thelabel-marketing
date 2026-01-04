@@ -59,6 +59,7 @@ const AnimatedPasswordField = ({
           <motion.input
             type={showPassword ? "text" : "password"}
             value={value}
+            name="password"
             onChange={onChange}
             placeholder={placeholder}
             className={`w-full pl-10 pr-12 py-3 bg-white/10 border-2 border-white/20 text-white placeholder:text-gray-400 rounded-lg transition-all duration-300 ${className}`}
