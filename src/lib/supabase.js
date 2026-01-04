@@ -5,8 +5,8 @@
  */
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = "https://tmulakisqpwwqyqotill.supabase.co";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtdWxha2lzcXB3d3F5cW90aWxsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzYwNjk1NTYsImV4cCI6MjA1MTY0NTU1Nn0.ChxuF3D28ok7Qo7kGAVMZtsTy5fM9uKhxeB8XhSYSxE";
 
 if (!supabaseUrl || !supabaseAnonKey) {
   console.warn('Supabase environment variables not configured. Auth will not work.');
