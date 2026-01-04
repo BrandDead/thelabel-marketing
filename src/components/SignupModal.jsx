@@ -379,7 +379,7 @@ const SignupModal = ({
                 required
                 disabled={isAuthenticating}
               />
-              <Label htmlFor="agreeToTerms" className="text-sm text-gray-300 leading-tight">
+              <Label htmlFor="agreeToTerms" className="text-sm text-gray-300 leading-tight cursor-pointer">
                 I agree to the{' '}
                 <a href="/terms" className="text-[#29C5F6] hover:text-[#29C5F6]/80">
                   Terms of Service
@@ -399,7 +399,7 @@ const SignupModal = ({
                 onChange={handleInputChange}
                 disabled={isAuthenticating}
               />
-              <Label htmlFor="subscribeNewsletter" className="text-sm text-gray-300 leading-tight">
+              <Label htmlFor="subscribeNewsletter" className="text-sm text-gray-300 leading-tight cursor-pointer">
                 Subscribe to our newsletter for updates and tips
               </Label>
             </div>
