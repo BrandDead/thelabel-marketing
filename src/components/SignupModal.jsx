@@ -166,10 +166,10 @@ const SignupModal = ({
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target
-    setFormData({
-      ...formData,
+    setFormData(prev => ({
+      ...prev,
       [name]: type === 'checkbox' ? checked : value
-    })
+    }))
     if (error) setError('')
   }
 
