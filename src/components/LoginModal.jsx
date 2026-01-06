@@ -318,7 +318,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
       >
         <Button 
           variant="outline"
-          className="w-full border-white/20 text-white hover:bg-white/10"
+          className="w-full bg-white border-white/20 text-gray-900 hover:bg-gray-100"
           onClick={handleGoogleLogin}
           disabled={isAuthenticating}
         >
@@ -332,7 +332,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
         </Button>
         <Button 
           variant="outline"
-          className="w-full border-white/20 text-white hover:bg-white/10"
+          className="w-full bg-white border-white/20 text-gray-900 hover:bg-gray-100"
           onClick={handleAppleLogin}
           disabled={isAuthenticating}
         >
