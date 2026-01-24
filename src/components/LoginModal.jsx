@@ -14,6 +14,10 @@ import { signInUser, supabase } from '../lib/supabase.js'
  * 
  * Handles user authentication with Supabase.
  * 
+ * IMPORTANT: For cross-domain auth (marketing site -> dashboard), we need to:
+ * 1. For OAuth (Google/Apple): Use redirectTo to dashboard - tokens come in URL hash
+ * 2. For email/password: Pass tokens in URL hash to dashboard for session transfer
+ * 
  * @param {Object} props
  * @param {boolean} props.isOpen - Whether the modal is open
  * @param {Function} props.onClose - Callback to close the modal
@@ -52,15 +56,26 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
         throw new Error(signInError.message || 'Invalid email or password')
       }
 
-      if (!user) {
+      if (!user || !session) {
         throw new Error('Login failed. Please try again.')
       }
 
       setIsAuthenticated(true)
       
+      // CROSS-DOMAIN AUTH FIX:
+      // Pass the session tokens in the URL hash so the dashboard can establish its own session.
+      // This is necessary because localStorage is not shared between subdomains.
+      const accessToken = session.access_token
+      const refreshToken = session.refresh_token
+      const expiresIn = session.expires_in || 3600
+      const tokenType = session.token_type || 'bearer'
+      
+      // Build the redirect URL with tokens in hash (same format as OAuth redirect)
+      const redirectUrl = `https://app.thelabelai.com/auth/callback#access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken)}&expires_in=${expiresIn}&token_type=${tokenType}`
+      
       // Redirect to dashboard after animation completes
       setTimeout(() => {
-        window.location.href = 'https://app.thelabelai.com/auth/callback'
+        window.location.href = redirectUrl
       }, 1500)
     } catch (err) {
       console.error('Login error:', err)
