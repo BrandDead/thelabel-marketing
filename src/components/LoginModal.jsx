@@ -60,7 +60,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
       
       // Redirect to dashboard after animation completes
       setTimeout(() => {
-        window.location.href = 'https://app.thelabelai.com/dashboard'
+        window.location.href = 'https://app.thelabelai.com/auth/callback'
       }, 1500)
     } catch (err) {
       console.error('Login error:', err)
@@ -75,7 +75,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: 'https://app.thelabelai.com/dashboard'
+          redirectTo: 'https://app.thelabelai.com/auth/callback'
         }
       })
       
@@ -93,7 +93,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'apple',
         options: {
-          redirectTo: 'https://app.thelabelai.com/dashboard'
+          redirectTo: 'https://app.thelabelai.com/auth/callback'
         }
       })
       
