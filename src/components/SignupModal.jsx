@@ -118,7 +118,7 @@ const SignupModal = ({
       } else {
         // Free plan - redirect directly to dashboard
         setTimeout(() => {
-          window.location.href = 'https://app.thelabelai.com/dashboard?welcome=true'
+          window.location.href = 'https://app.thelabelai.com/auth/callback?welcome=true'
         }, 1500)
       }
     } catch (err) {
@@ -141,7 +141,7 @@ const SignupModal = ({
           billingPeriod: billingPeriod,
           userId: userId,
           userEmail: userEmail,
-          successUrl: 'https://app.thelabelai.com/dashboard?welcome=true&subscription=success',
+          successUrl: 'https://app.thelabelai.com/auth/callback?welcome=true&subscription=success',
           cancelUrl: `${window.location.origin}?signup=cancelled`
         })
       })
@@ -163,7 +163,7 @@ const SignupModal = ({
       // Even if Stripe fails, the account is created - redirect to dashboard
       setError('Payment setup failed. You can upgrade from your dashboard.')
       setTimeout(() => {
-        window.location.href = 'https://app.thelabelai.com/dashboard?welcome=true'
+        window.location.href = 'https://app.thelabelai.com/auth/callback?welcome=true'
       }, 3000)
     }
   }
