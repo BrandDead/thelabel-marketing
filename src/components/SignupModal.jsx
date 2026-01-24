@@ -114,12 +114,25 @@ const SignupModal = ({
         setStep('redirecting')
         setIsRedirectingToStripe(true)
         
-        await initiateStripeCheckout(user.id, formData.email)
+        await initiateStripeCheckout(user.id, formData.email, session)
       } else {
-        // Free plan - redirect directly to dashboard
-        setTimeout(() => {
-          window.location.href = 'https://app.thelabelai.com/auth/callback?welcome=true'
-        }, 1500)
+        // Free plan - redirect directly to dashboard with tokens for cross-domain auth
+        // CROSS-DOMAIN AUTH FIX: Pass tokens in URL hash since localStorage isn't shared between subdomains
+        if (session) {
+          const accessToken = session.access_token
+          const refreshToken = session.refresh_token
+          const expiresIn = session.expires_in || 3600
+          const tokenType = session.token_type || 'bearer'
+          const redirectUrl = `https://app.thelabelai.com/auth/callback?welcome=true#access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken)}&expires_in=${expiresIn}&token_type=${tokenType}`
+          setTimeout(() => {
+            window.location.href = redirectUrl
+          }, 1500)
+        } else {
+          // Fallback if no session (shouldn't happen)
+          setTimeout(() => {
+            window.location.href = 'https://app.thelabelai.com/auth/callback?welcome=true'
+          }, 1500)
+        }
       }
     } catch (err) {
       console.error('Signup error:', err)
@@ -129,8 +142,18 @@ const SignupModal = ({
     }
   }
 
-  const initiateStripeCheckout = async (userId, userEmail) => {
+  const initiateStripeCheckout = async (userId, userEmail, session) => {
     try {
+      // Build success URL with tokens for cross-domain auth
+      let successUrl = 'https://app.thelabelai.com/auth/callback?welcome=true&subscription=success'
+      if (session) {
+        const accessToken = session.access_token
+        const refreshToken = session.refresh_token
+        const expiresIn = session.expires_in || 3600
+        const tokenType = session.token_type || 'bearer'
+        successUrl = `https://app.thelabelai.com/auth/callback?welcome=true&subscription=success#access_token=${encodeURIComponent(accessToken)}&refresh_token=${encodeURIComponent(refreshToken)}&expires_in=${expiresIn}&token_type=${tokenType}`
+      }
+      
       const response = await fetch(`${API_CONFIG.BACKEND_URL}${API_CONFIG.STRIPE_CHECKOUT_ENDPOINT}`, {
         method: 'POST',
         headers: {
@@ -141,7 +164,7 @@ const SignupModal = ({
           billingPeriod: billingPeriod,
           userId: userId,
           userEmail: userEmail,
-          successUrl: 'https://app.thelabelai.com/auth/callback?welcome=true&subscription=success',
+          successUrl: successUrl,
           cancelUrl: `${window.location.origin}?signup=cancelled`
         })
       })
@@ -163,7 +186,8 @@ const SignupModal = ({
       // Even if Stripe fails, the account is created - redirect to dashboard
       setError('Payment setup failed. You can upgrade from your dashboard.')
       setTimeout(() => {
-        window.location.href = 'https://app.thelabelai.com/auth/callback?welcome=true'
+        // Note: We don't have session here, so user may need to re-login
+        window.location.href = 'https://app.thelabelai.com/login?welcome=true'
       }, 3000)
     }
   }
