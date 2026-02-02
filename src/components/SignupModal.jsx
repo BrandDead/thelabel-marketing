@@ -441,11 +441,23 @@ const SignupModal = ({
               />
               <Label htmlFor="agreeToTerms" className="text-sm text-gray-300 leading-tight cursor-pointer">
                 I agree to the{' '}
-                <a href="/terms" className="text-[#29C5F6] hover:text-[#29C5F6]/80">
+                <a 
+                  href="/terms" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-[#29C5F6] hover:text-[#29C5F6]/80"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   Terms of Service
                 </a>{' '}
                 and{' '}
-                <a href="/privacy" className="text-[#29C5F6] hover:text-[#29C5F6]/80">
+                <a 
+                  href="/privacy" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-[#29C5F6] hover:text-[#29C5F6]/80"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   Privacy Policy
                 </a>
               </Label>

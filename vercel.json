@@ -6,6 +6,10 @@
   "redirects": [
     { "source": "/dashboard", "destination": "https://app.thelabelai.com", "permanent": true }
   ],
+  "rewrites": [
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/privacy", "destination": "/privacy.html" }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
