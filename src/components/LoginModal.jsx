@@ -12,11 +12,14 @@ import { signInUser, supabase } from '../lib/supabase.js'
 /**
  * LoginModal Component
  * 
- * Handles user authentication with Supabase.
+ * Handles user authentication for the marketing site.
  * 
- * IMPORTANT: For cross-domain auth (marketing site -> dashboard), we need to:
- * 1. For OAuth (Google/Apple): Use redirectTo to dashboard - tokens come in URL hash
- * 2. For email/password: Pass tokens in URL hash to dashboard for session transfer
+ * ARCHITECTURE (Feb 2026):
+ * - OAuth (Google/Apple): Delegates to dashboard via redirect - dashboard owns the OAuth flow
+ * - Email/Password: Authenticates here, then passes tokens to dashboard for session transfer
+ * 
+ * This prevents cross-domain PKCE issues where the marketing site's Supabase client
+ * starts an OAuth flow but the dashboard's client tries to finish it.
  * 
  * @param {Object} props
  * @param {boolean} props.isOpen - Whether the modal is open
@@ -31,6 +34,9 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
   const [isAuthenticating, setIsAuthenticating] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [error, setError] = useState('')
+
+  // Dashboard URL for OAuth delegation
+  const DASHBOARD_LOGIN_URL = 'https://app.thelabelai.com/login'
 
   if (!isOpen) return null
 
@@ -84,40 +90,24 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
     }
   }
 
-  const handleGoogleLogin = async () => {
-    try {
-      setIsAuthenticating(true)
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: 'https://app.thelabelai.com/auth/callback'
-        }
-      })
-      
-      if (error) throw error
-    } catch (err) {
-      console.error('Google login error:', err)
-      setError('Google login failed. Please try again.')
-      setIsAuthenticating(false)
-    }
+  /**
+   * Delegate Google OAuth to the dashboard.
+   * Instead of starting OAuth here (which causes PKCE cross-domain issues),
+   * we simply redirect to the dashboard's login page with a source parameter.
+   * The dashboard will handle the entire OAuth flow.
+   */
+  const handleGoogleLogin = () => {
+    // Redirect to dashboard login with source=marketing and provider hint
+    window.location.href = `${DASHBOARD_LOGIN_URL}?source=marketing&provider=google`
   }
 
-  const handleAppleLogin = async () => {
-    try {
-      setIsAuthenticating(true)
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'apple',
-        options: {
-          redirectTo: 'https://app.thelabelai.com/auth/callback'
-        }
-      })
-      
-      if (error) throw error
-    } catch (err) {
-      console.error('Apple login error:', err)
-      setError('Apple login failed. Please try again.')
-      setIsAuthenticating(false)
-    }
+  /**
+   * Delegate Apple OAuth to the dashboard.
+   * Same approach as Google - let the dashboard own the OAuth flow.
+   */
+  const handleAppleLogin = () => {
+    // Redirect to dashboard login with source=marketing and provider hint
+    window.location.href = `${DASHBOARD_LOGIN_URL}?source=marketing&provider=apple`
   }
 
   const handleForgotPassword = async () => {
@@ -324,7 +314,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
         <div className="flex-1 border-t border-white/20"></div>
       </motion.div>
 
-      {/* Social Login */}
+      {/* Social Login - Now delegates to dashboard */}
       <motion.div
         className="space-y-3"
         initial={{ opacity: 0 }}
@@ -336,6 +326,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
           className="w-full bg-white border-white/20 text-gray-900 hover:bg-gray-100"
           onClick={handleGoogleLogin}
           disabled={isAuthenticating}
+          type="button"
         >
           <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
             <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -350,6 +341,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
           className="w-full bg-white border-white/20 text-gray-900 hover:bg-gray-100"
           onClick={handleAppleLogin}
           disabled={isAuthenticating}
+          type="button"
         >
           <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
             <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>

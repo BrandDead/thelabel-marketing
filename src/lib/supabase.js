@@ -1,15 +1,27 @@
 /**
  * Supabase Client Configuration
  * 
- * Handles authentication for theLABEL marketing website
+ * Handles authentication for theLABEL marketing website.
+ * 
+ * IMPORTANT (Feb 2026): 
+ * - Credentials MUST come from environment variables, not hardcoded
+ * - Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in Vercel project settings
+ * - OAuth is delegated to the dashboard - this client is only for email/password auth
  */
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = "https://tmulakisqpwwqyqotill.supabase.co";
-const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtdWxha2lzcXB3d3F5cW90aWxsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzYwNjk1NTYsImV4cCI6MjA1MTY0NTU1Nn0.ChxuF3D28ok7Qo7kGAVMZtsTy5fM9uKhxeB8XhSYSxE";
+// Read from environment variables (Vite uses VITE_ prefix)
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+// Validate environment variables in development
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('Supabase environment variables not configured. Auth will not work.');
+  console.error(
+    '❌ Supabase environment variables not configured.\n' +
+    'Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your environment.\n' +
+    'For local dev: create .env.local file\n' +
+    'For production: set in Vercel project settings'
+  );
 }
 
 export const supabase = createClient(
@@ -43,7 +55,8 @@ export const signUpUser = async ({ email, password, firstName, lastName, artistN
           location: location,
           full_name: artistName || `${firstName} ${lastName}`
         },
-        emailRedirectTo: `${window.location.origin}/auth/callback`
+        // Redirect to dashboard for email confirmation
+        emailRedirectTo: 'https://app.thelabelai.com/auth/callback'
       }
     });
 
