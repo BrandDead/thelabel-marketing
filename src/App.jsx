@@ -1,41 +1,24 @@
-import { useState } from 'react'
 import './App.css'
 import Pricing from './components/Pricing.jsx'
-import SignupModal from './components/SignupModal.jsx'
-import LoginModal from './components/LoginModal.jsx'
-import { BILLING_PERIODS } from './lib/plans.js'
 
 function App() {
-  const [isSignupOpen, setIsSignupOpen] = useState(false)
-  const [isLoginOpen, setIsLoginOpen] = useState(false)
-  const [selectedPlan, setSelectedPlan] = useState('free')
-  const [billingPeriod, setBillingPeriod] = useState(BILLING_PERIODS.MONTHLY)
-
-  const handleSignupClick = (planId = 'free', period = BILLING_PERIODS.MONTHLY) => {
-    setSelectedPlan(planId)
-    setBillingPeriod(period)
-    setIsSignupOpen(true)
-    setIsLoginOpen(false)
+  const handleSignupClick = (planId, period) => {
+    // Redirect directly to dashboard login page
+    // This prevents the double OAuth issue by delegating all authentication to the dashboard
+    // Pass plan selection as query parameters so dashboard can pre-select the plan
+    let url = 'https://app.thelabelai.com/login'
+    if (planId && planId !== 'free') {
+      url += `?plan=${encodeURIComponent(planId)}`
+      if (period) {
+        url += `&period=${encodeURIComponent(period)}`
+      }
+    }
+    window.location.href = url
   }
 
   const handleLoginClick = () => {
-    setIsLoginOpen(true)
-    setIsSignupOpen(false)
-  }
-
-  const handleSwitchToLogin = () => {
-    setIsSignupOpen(false)
-    setIsLoginOpen(true)
-  }
-
-  const handleSwitchToSignup = () => {
-    setIsLoginOpen(false)
-    setIsSignupOpen(true)
-  }
-
-  const closeModals = () => {
-    setIsSignupOpen(false)
-    setIsLoginOpen(false)
+    // Redirect directly to dashboard login page
+    window.location.href = 'https://app.thelabelai.com/login'
   }
 
   return (
@@ -219,20 +202,6 @@ function App() {
         </div>
       </footer>
 
-      {/* Modals */}
-      <SignupModal 
-        isOpen={isSignupOpen}
-        onClose={closeModals}
-        onSwitchToLogin={handleSwitchToLogin}
-        selectedPlan={selectedPlan}
-        billingPeriod={billingPeriod}
-      />
-      
-      <LoginModal 
-        isOpen={isLoginOpen}
-        onClose={closeModals}
-        onSwitchToSignup={handleSwitchToSignup}
-      />
     </div>
   )
 }
