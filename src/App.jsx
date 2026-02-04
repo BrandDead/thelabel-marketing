@@ -2,10 +2,18 @@ import './App.css'
 import Pricing from './components/Pricing.jsx'
 
 function App() {
-  const handleSignupClick = () => {
+  const handleSignupClick = (planId, period) => {
     // Redirect directly to dashboard login page
     // This prevents the double OAuth issue by delegating all authentication to the dashboard
-    window.location.href = 'https://app.thelabelai.com/login'
+    // Pass plan selection as query parameters so dashboard can pre-select the plan
+    let url = 'https://app.thelabelai.com/login'
+    if (planId && planId !== 'free') {
+      url += `?plan=${encodeURIComponent(planId)}`
+      if (period) {
+        url += `&period=${encodeURIComponent(period)}`
+      }
+    }
+    window.location.href = url
   }
 
   const handleLoginClick = () => {
