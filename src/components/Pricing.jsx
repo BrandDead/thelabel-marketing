@@ -104,7 +104,7 @@ const Pricing = ({ onSignupClick }) => {
 
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-16">
-          {plans.map((plan, index) => {
+          {plans.map((plan) => {
             const savings = plan.monthlyPrice > 0 ? getYearlySavings(plan.monthlyPrice) : 0
             
             return (
