@@ -21,13 +21,14 @@ export const AnimatedCounter = ({ end, duration = 2000, suffix = '', prefix = ''
       { threshold: 0.5 }
     )
 
-    if (counterRef.current) {
-      observer.observe(counterRef.current)
+    const currentRef = counterRef.current
+    if (currentRef) {
+      observer.observe(currentRef)
     }
 
     return () => {
-      if (counterRef.current) {
-        observer.unobserve(counterRef.current)
+      if (currentRef) {
+        observer.unobserve(currentRef)
       }
     }
   }, [isVisible])
@@ -77,13 +78,14 @@ export const ScrollReveal = ({ children, animation = 'fade-up', delay = 0, class
       { threshold: 0.1 }
     )
 
-    if (elementRef.current) {
-      observer.observe(elementRef.current)
+    const currentRef = elementRef.current
+    if (currentRef) {
+      observer.observe(currentRef)
     }
 
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current)
+      if (currentRef) {
+        observer.unobserve(currentRef)
       }
     }
   }, [delay])
