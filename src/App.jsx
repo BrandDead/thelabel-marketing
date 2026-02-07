@@ -1,5 +1,9 @@
 import './App.css'
 import Pricing from './components/Pricing.jsx'
+import Testimonials from './components/Testimonials.jsx'
+import Comparison from './components/Comparison.jsx'
+import FAQ from './components/FAQ.jsx'
+import TrustBadges from './components/TrustBadges.jsx'
 
 function App() {
   const handleSignupClick = (planId, period) => {
@@ -135,6 +139,18 @@ function App() {
 
       {/* Pricing Section */}
       <Pricing onSignupClick={handleSignupClick} />
+
+      {/* Comparison Section */}
+      <Comparison />
+
+      {/* Testimonials Section */}
+      <Testimonials />
+
+      {/* Trust Badges Section */}
+      <TrustBadges />
+
+      {/* FAQ Section */}
+      <FAQ />
 
       {/* About Section */}
       <section id="about" className="py-20 bg-gradient-to-b from-slate-900 to-purple-900">

@@ -1,0 +1,19 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#15171C;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FF5000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#29C5F6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#grad)"/>
+  
+  <text x="600" y="220" font-family="Arial, sans-serif" font-size="96" font-weight="bold" fill="white" text-anchor="middle">theLABEL</text>
+  
+  <text x="600" y="320" font-family="Arial, sans-serif" font-size="42" fill="white" text-anchor="middle" opacity="0.9">AI-Powered Music Platform</text>
+  
+  <text x="600" y="390" font-family="Arial, sans-serif" font-size="36" fill="#29C5F6" text-anchor="middle" font-style="italic">For Independent Artists</text>
+  
+  <text x="600" y="500" font-family="Arial, sans-serif" font-size="28" fill="white" text-anchor="middle" opacity="0.8">No 360 Deals • Keep 100% Rights • AI-Powered Tools</text>
+</svg>
