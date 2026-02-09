@@ -1,5 +1,12 @@
 import './App.css'
 import Pricing from './components/Pricing.jsx'
+import Testimonials from './components/Testimonials.jsx'
+import Comparison from './components/Comparison.jsx'
+import FAQ from './components/FAQ.jsx'
+import TrustBadges from './components/TrustBadges.jsx'
+import ContactForm from './components/ContactForm.jsx'
+import LiveMetrics from './components/LiveMetrics.jsx'
+import { ScrollReveal, GradientMesh, FloatingCard } from './components/Animations.jsx'
 
 function App() {
   const handleSignupClick = (planId, period) => {
@@ -23,6 +30,9 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Gradient Mesh Background */}
+      <GradientMesh />
+      
       {/* Header */}
       <header className="fixed top-0 w-full z-50 glassmorphism">
         <div className="container mx-auto px-4 py-4">
@@ -56,49 +66,65 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center pt-20">
+      <section className="min-h-screen flex items-center justify-center pt-20 relative">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-6xl md:text-8xl font-black text-white mb-6 neon-glow">
-            NO MORE 360 DEALS
-          </h1>
-          <h2 className="text-2xl md:text-4xl font-light text-blue-400 mb-8 lowercase italic">
-            the future belongs to independent artists
-          </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-            Stop eating off crumbs. It's time for creatives to eat off their creativity. 
-            Build your empire from concept to concert with AI-powered tools that rival major labels.
-          </p>
+          <ScrollReveal animation="zoom-in">
+            <h1 className="text-6xl md:text-8xl font-black text-white mb-6 neon-glow">
+              NO MORE 360 DEALS
+            </h1>
+          </ScrollReveal>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-            <button 
-              onClick={() => handleSignupClick('free')}
-              className="bg-orange-500 hover:bg-orange-600 text-white text-xl px-12 py-6 rounded-lg transition-colors electric-pulse"
-            >
-              SIGN UP FREE
-            </button>
-            <a 
-              href="#pricing"
-              className="border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white text-xl px-12 py-6 rounded-lg transition-colors"
-            >
-              View Plans
-            </a>
-          </div>
+          <ScrollReveal animation="fade-up" delay={200}>
+            <h2 className="text-2xl md:text-4xl font-light text-blue-400 mb-8 lowercase italic">
+              the future belongs to independent artists
+            </h2>
+          </ScrollReveal>
+          
+          <ScrollReveal animation="fade-up" delay={400}>
+            <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+              Stop eating off crumbs. It's time for creatives to eat off their creativity. 
+              Build your empire from concept to concert with AI-powered tools that rival major labels.
+            </p>
+          </ScrollReveal>
+          
+          <ScrollReveal animation="fade-up" delay={600}>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+              <button 
+                onClick={() => handleSignupClick('free')}
+                className="bg-orange-500 hover:bg-orange-600 text-white text-xl px-12 py-6 rounded-lg transition-colors electric-pulse"
+              >
+                SIGN UP FREE
+              </button>
+              <a 
+                href="#pricing"
+                className="border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white text-xl px-12 py-6 rounded-lg transition-colors"
+              >
+                View Plans
+              </a>
+            </div>
+          </ScrollReveal>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="glassmorphism p-6 rounded-lg">
-              <h3 className="text-xl font-bold text-white mb-2">YOUR LABEL, YOUR RULES</h3>
-              <p className="text-gray-300">Control your career with industry-grade tools. No contracts, no commitments, just pure creative freedom.</p>
-            </div>
+            <ScrollReveal animation="fade-up" delay={800}>
+              <FloatingCard className="glassmorphism p-6 rounded-lg">
+                <h3 className="text-xl font-bold text-white mb-2">YOUR LABEL, YOUR RULES</h3>
+                <p className="text-gray-300">Control your career with industry-grade tools. No contracts, no commitments, just pure creative freedom.</p>
+              </FloatingCard>
+            </ScrollReveal>
             
-            <div className="glassmorphism p-6 rounded-lg">
-              <h3 className="text-xl font-bold text-white mb-2">24/7 AI WORKFORCE</h3>
-              <p className="text-gray-300">Grammy-winning producers, managers, and marketers working around the clock for YOUR success.</p>
-            </div>
+            <ScrollReveal animation="fade-up" delay={1000}>
+              <FloatingCard className="glassmorphism p-6 rounded-lg">
+                <h3 className="text-xl font-bold text-white mb-2">24/7 AI WORKFORCE</h3>
+                <p className="text-gray-300">Grammy-winning producers, managers, and marketers working around the clock for YOUR success.</p>
+              </FloatingCard>
+            </ScrollReveal>
             
-            <div className="glassmorphism p-6 rounded-lg">
-              <h3 className="text-xl font-bold text-white mb-2">CONCEPT TO CONCERT</h3>
-              <p className="text-gray-300">From bedroom beats to sold-out shows. We handle everything while you focus on creating hits.</p>
-            </div>
+            <ScrollReveal animation="fade-up" delay={1200}>
+              <FloatingCard className="glassmorphism p-6 rounded-lg">
+                <h3 className="text-xl font-bold text-white mb-2">CONCEPT TO CONCERT</h3>
+                <p className="text-gray-300">From bedroom beats to sold-out shows. We handle everything while you focus on creating hits.</p>
+              </FloatingCard>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -135,6 +161,24 @@ function App() {
 
       {/* Pricing Section */}
       <Pricing onSignupClick={handleSignupClick} />
+
+      {/* Live Metrics Section */}
+      <LiveMetrics />
+
+      {/* Comparison Section */}
+      <Comparison />
+
+      {/* Testimonials Section */}
+      <Testimonials />
+
+      {/* Trust Badges Section */}
+      <TrustBadges />
+
+      {/* FAQ Section */}
+      <FAQ />
+
+      {/* Contact Form Section */}
+      <ContactForm />
 
       {/* About Section */}
       <section id="about" className="py-20 bg-gradient-to-b from-slate-900 to-purple-900">

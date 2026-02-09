@@ -3,6 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Reset cursor to default - fix cursor lag */
 * {
   cursor: default !important;
