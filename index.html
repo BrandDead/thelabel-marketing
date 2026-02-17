@@ -50,19 +50,36 @@
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "USD",
-          "name": "Free Plan"
+          "name": "Free Plan",
+          "description": "Get started with basic tools"
+        },
+        {
+          "@type": "Offer",
+          "price": "29",
+          "priceCurrency": "USD",
+          "name": "Creator Plan",
+          "description": "Enhanced tools for serious artists"
         },
         {
           "@type": "Offer",
           "price": "49",
           "priceCurrency": "USD",
-          "name": "Creator Plan"
+          "name": "Professional Plan",
+          "description": "Complete creative suite"
+        },
+        {
+          "@type": "Offer",
+          "price": "79",
+          "priceCurrency": "USD",
+          "name": "Label Plan",
+          "description": "Everything + all apps"
         },
         {
           "@type": "Offer",
           "price": "99",
           "priceCurrency": "USD",
-          "name": "Professional Plan"
+          "name": "Legend Plan",
+          "description": "24-hour agent activity"
         }
       ],
       "aggregateRating": {
@@ -86,15 +103,25 @@
     </script>
 
     <!-- Google Analytics (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <!-- Set VITE_GA_MEASUREMENT_ID in your .env to enable tracking -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'GA_MEASUREMENT_ID', {
-        page_title: 'theLABEL Marketing',
-        page_location: window.location.href
-      });
+      (function() {
+        var gaId = '%VITE_GA_MEASUREMENT_ID%';
+        // Only load GA if a real measurement ID is configured
+        if (gaId && gaId !== '' && !gaId.includes('VITE_GA')) {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+          document.head.appendChild(script);
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId, {
+            page_title: 'theLABEL Marketing',
+            page_location: window.location.href
+          });
+        }
+      })();
     </script>
 
     <!-- Meta Pixel -->
