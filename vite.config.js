@@ -8,6 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
+  /* eslint-disable-next-line no-undef */
   const env = loadEnv(mode, process.cwd(), 'VITE_')
 
   return {
