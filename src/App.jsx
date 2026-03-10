@@ -1,5 +1,6 @@
 import './App.css'
 import Pricing from './components/Pricing.jsx'
+import Discover from './components/Discover.jsx'
 import Testimonials from './components/Testimonials.jsx'
 import Comparison from './components/Comparison.jsx'
 import FAQ from './components/FAQ.jsx'
@@ -161,6 +162,8 @@ function App() {
 
       {/* Pricing Section */}
       <Pricing onSignupClick={handleSignupClick} />
+      {/* Discover Section */}
+      <Discover />
 
       {/* Live Metrics Section */}
       <LiveMetrics />
