@@ -12,25 +12,32 @@ on:
 jobs:
   lint-and-build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
-    
+
+    # pnpm MUST be installed before setup-node, because `cache: 'pnpm'` asks
+    # setup-node to locate the pnpm store, which fails if pnpm is not yet on
+    # PATH. Without this step every run died at "Install dependencies" before
+    # reaching lint or build.
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '22'
         cache: 'pnpm'
-    
+
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
-    
+
     - name: Lint
       run: pnpm lint
-    
+
     - name: Build
       run: pnpm build
-    
+
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       if: always()
@@ -41,34 +48,39 @@ jobs:
 
   health-check:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
-    
+
+    # NOTE: this job is intentionally advisory -- it reports what the live site
+    # returns without failing the pipeline, so a transient marketing-site blip
+    # never blocks a dashboard deploy. The results file is written so the
+    # upload step below has something real to attach; previously it referenced
+    # a file nothing ever created and silently uploaded nothing.
     - name: Check marketing site health
       run: |
-        echo "🏥 Marketing Site Health Check"
-        echo "=============================="
-        
-        # Check homepage
-        echo "Checking homepage..."
-        curl -s -o /dev/null -w "%{http_code}" https://thelabelai.com
-        echo " - Homepage status"
-        
-        # Check login redirect
-        echo "Checking login redirect..."
-        curl -s -I https://thelabelai.com/login | grep -i "location:"
-        
-        # Check signup redirect  
-        echo "Checking signup redirect..."
-        curl -s -I https://thelabelai.com/signup | grep -i "location:"
-        
-        # Check WWW redirect
-        echo "Checking WWW redirect..."
-        curl -s -I https://www.thelabelai.com | grep -i "location:"
-        
-        echo "✅ Marketing site health check complete"
-    
+        {
+          echo "Marketing Site Health Check"
+          echo "==========================="
+          echo "run: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo
+
+          echo "Homepage (https://thelabelai.com):"
+          echo "  status: $(curl -s -o /dev/null -w '%{http_code}' --max-time 20 https://thelabelai.com)"
+
+          echo "Login redirect (/login):"
+          curl -s -I --max-time 20 https://thelabelai.com/login | grep -i '^location:' || echo "  (no Location header)"
+
+          echo "Signup redirect (/signup):"
+          curl -s -I --max-time 20 https://thelabelai.com/signup | grep -i '^location:' || echo "  (no Location header)"
+
+          echo "WWW redirect (https://www.thelabelai.com):"
+          curl -s -I --max-time 20 https://www.thelabelai.com | grep -i '^location:' || echo "  (no Location header)"
+
+          echo
+          echo "Health check complete."
+        } | tee marketing-health-results.txt
+
     - name: Upload health check results
       uses: actions/upload-artifact@v4
       if: always()
