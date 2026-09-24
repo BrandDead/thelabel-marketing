@@ -4,3 +4,7 @@ dist/
 .vercel/
 .env*
 !.env.example
+
+# Slide is a separate 18+ game property. Its assets never belong in this public
+# artist-acquisition repository.
+slide-game-assets/
