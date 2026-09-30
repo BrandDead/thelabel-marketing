@@ -1,55 +1,43 @@
-# thelabel-marketing Status
+# theLABEL marketing status
 
-> **Last Updated**: 2026-02-17 (JSON-LD Pricing Fix + GA Config)
-
----
-
-## Role in Ecosystem
-
-This repository contains the **public-facing marketing website**. It serves as the main landing page for theLABEL, driving user acquisition and providing information about the platform. It is a separate entity from the `tl-dash1` application itself.
+_Current operating truth — 23 September 2026_
 
 ---
 
-## Current State
+## Role in theLABEL
 
-- **SEO & Conversion**: Complete. Structured data (JSON-LD), testimonials, FAQs, trust badges, and contact form are all live.
-- **JSON-LD Pricing**: Fixed. All 5 subscription tiers now match the actual prices in `plans.js` (PR #23).
-- **Google Analytics**: Configured via `VITE_GA_MEASUREMENT_ID` environment variable, injected at build time through Vite's `html` plugin (PR #23).
-- **Sitemap**: Updated with current dates and all pages.
-- **CTA Wiring**: Pricing buttons use `onSignupClick` which opens the signup modal or redirects to the dashboard.
-- **Branch Health**: Clean. All stale/merged branches have been removed.
-- **Dependencies**: Build requires `npm install --force`; resolve conflicts post-MVP.
+`thelabel-marketing` is the **public artist-acquisition site** for theLABEL. Its primary job is to give prospective artists a clear reason to join and send them to the authenticated dashboard at `https://app.thelabelai.com/login`. It is not a commerce backend, a game property, or the home for experimental product assets.
 
----
+> **Current state:** The site remains a brochure and acquisition surface. The active brand-foundation work is draft pull request [#30](https://github.com/BrandDead/thelabel-marketing/pull/30); its disposition needs a focused review before any production merge.
 
-## Recently Merged PRs
+## Current contract
 
-| PR | Title | Date |
-|----|-------|------|
-| #23 | JSON-LD pricing fix + GA env config + sitemap update | 2026-02-17 |
-| #21 | SEO overhaul, testimonials, FAQs, trust badges | 2026-02-09 |
+| Area | Current truth |
+| --- | --- |
+| Primary conversion path | `START FOR FREE` / `GET STARTED FREE` to theLABEL dashboard login |
+| Deployment | Vite static site on Vercel |
+| Package manager | pnpm 10.4.1 with `pnpm-lock.yaml` |
+| CI contract | Node 22, `pnpm install --frozen-lockfile`, lint, and build |
+| Analytics | `VITE_GA_MEASUREMENT_ID` is optional and public at build time; confirm its Vercel configuration separately |
+| Slide assets | Removed from the current marketing tree and ignored to prevent reintroduction |
 
----
+## Immediate operating gates
 
-## What Remains
+1. **Review pull request #30:** Keep its scope limited to the artist-acquisition experience, accessibility, and conversion path. Merge only after the current main branch and required CI are reviewed together.
+2. **Resolve issue #10:** Replace the obsolete beta checklist with the current acquisition release gate, or close it as superseded with a documented replacement.
+3. **Keep one package manager:** Use pnpm and commit only `pnpm-lock.yaml`. Do not restore `package-lock.json` without an explicit package-manager decision.
+4. **Keep brand boundaries explicit:** Slide is a separate 18+ game property. Public theLABEL marketing must not carry its weapons, drug, character, or sprite assets.
 
-| Item | Priority | Notes |
-|------|----------|-------|
-| Set `VITE_GA_MEASUREMENT_ID` in Vercel | High | GA tracking is ready but needs the real measurement ID |
-| Dependency audit | Low | Build requires `npm install --force`; resolve conflicts post-MVP |
-| A/B testing | Post-MVP | Test headlines and CTAs for conversion optimization |
-
----
-
-## How to Run Locally
+## Verification commands
 
 ```bash
-git clone https://github.com/BrandDead/thelabel-marketing.git && cd thelabel-marketing
-npm install --force
-cp .env.example .env          # Fill in real values
-npm run dev                   # Runs on http://localhost:5173
+pnpm install --frozen-lockfile
+pnpm lint
+pnpm build
 ```
 
-## How to Deploy
+These commands verify the static site. They do not prove analytics configuration, dashboard authentication, or conversion performance.
 
-Merging to `main` triggers auto-deploy via Vercel. Set `VITE_GA_MEASUREMENT_ID` in the Vercel environment variables for Google Analytics tracking.
+## Historical records
+
+February continuity and final-summary documents describe an earlier site state. Treat them as historical notes; this file and the repository's current `main` branch describe the active operating position.
