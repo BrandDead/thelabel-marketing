@@ -1,5 +1,12 @@
-import { useState, useEffect } from 'react'
-import strongLogo from '../assets/pasted_file_8nQJT8_theLABEL-stronglogo.png'
+import { useEffect, useState } from 'react'
+import BrandMark from './BrandMark.jsx'
+
+const navigation = [
+  ['Features', '#features'],
+  ['Agents', '#agents'],
+  ['Pricing', '#pricing'],
+  ['About', '#about'],
+]
 
 const Header = ({ onSignupClick, onLoginClick }) => {
   const [scrolled, setScrolled] = useState(false)
@@ -13,58 +20,84 @@ const Header = ({ onSignupClick, onLoginClick }) => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-200 ${
         scrolled
-          ? 'bg-[#0A0B0F]/95 backdrop-blur-xl border-b border-white/5 shadow-2xl'
-          : 'bg-transparent'
+          ? 'border-white/10 bg-[color:var(--color-canvas)]/95 shadow-[0_12px_32px_rgb(0_0_0_/_24%)]'
+          : 'border-transparent bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-3 group">
-          <img src={strongLogo} alt="theLABEL" className="h-8 w-auto transition-all duration-300 group-hover:brightness-125" />
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-6">
+        <a href="/" className="rounded-sm" aria-label="theLABEL home">
+          <BrandMark size="header" />
         </a>
 
-        <nav className="hidden md:flex items-center gap-8">
-          {[['Features','#features'],['Agents','#agents'],['Pricing','#pricing'],['About','#about']].map(([label, href]) => (
-            <a key={label} href={href} className="text-sm font-medium text-gray-400 hover:text-white transition-colors duration-200 tracking-wide uppercase">
+        <nav className="hidden items-center gap-7 md:flex" aria-label="Primary navigation">
+          {navigation.map(([label, href]) => (
+            <a
+              key={label}
+              href={href}
+              className="text-sm font-medium text-[color:var(--color-text-muted)] transition-colors hover:text-white"
+            >
               {label}
             </a>
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-4">
-          <button onClick={onLoginClick} className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
-            Sign In
+        <div className="hidden items-center gap-3 md:flex">
+          <button
+            type="button"
+            onClick={onLoginClick}
+            className="rounded-md px-3 py-2 text-sm font-medium text-[color:var(--color-text-muted)] transition-colors hover:text-white"
+          >
+            Sign in
           </button>
           <button
+            type="button"
             onClick={() => onSignupClick('free')}
-            className="relative px-6 py-2.5 text-sm font-bold text-white rounded-full overflow-hidden group"
-            style={{ background: 'linear-gradient(135deg, #FF5000, #FF7A00)' }}
+            className="tl-action min-h-11 rounded-[var(--radius-control)] px-4 py-2 text-sm font-semibold"
           >
-            <span className="relative z-10">GET STARTED FREE</span>
-            <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            Request beta access
           </button>
         </div>
 
-        <button className="md:hidden text-white p-2" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
-          <div className={`w-6 h-0.5 bg-white mb-1.5 transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
-          <div className={`w-6 h-0.5 bg-white mb-1.5 transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
-          <div className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+        <button
+          type="button"
+          className="min-h-11 min-w-11 rounded-[var(--radius-control)] border border-white/10 p-2 text-white md:hidden"
+          onClick={() => setMobileOpen((open) => !open)}
+          aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-controls="mobile-navigation"
+          aria-expanded={mobileOpen}
+        >
+          <span className="sr-only">Menu</span>
+          <span aria-hidden="true" className="flex flex-col gap-1.5">
+            <span className={`h-0.5 w-6 bg-current transition-transform ${mobileOpen ? 'translate-y-2 rotate-45' : ''}`} />
+            <span className={`h-0.5 w-6 bg-current transition-opacity ${mobileOpen ? 'opacity-0' : ''}`} />
+            <span className={`h-0.5 w-6 bg-current transition-transform ${mobileOpen ? '-translate-y-2 -rotate-45' : ''}`} />
+          </span>
         </button>
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-[#0A0B0F]/98 backdrop-blur-xl border-t border-white/5 px-6 py-6">
-          <nav className="flex flex-col gap-4 mb-6">
-            {[['Features','#features'],['Agents','#agents'],['Pricing','#pricing'],['About','#about']].map(([label, href]) => (
-              <a key={label} href={href} onClick={() => setMobileOpen(false)} className="text-base font-medium text-gray-300 hover:text-white transition-colors py-2 border-b border-white/5">
+        <div id="mobile-navigation" className="border-t border-white/10 bg-[color:var(--color-canvas)] px-5 py-5 md:hidden">
+          <nav className="mx-auto flex max-w-7xl flex-col gap-1" aria-label="Mobile navigation">
+            {navigation.map(([label, href]) => (
+              <a
+                key={label}
+                href={href}
+                onClick={() => setMobileOpen(false)}
+                className="rounded-[var(--radius-control)] px-3 py-3 text-base font-medium text-[color:var(--color-text)] hover:bg-white/5"
+              >
                 {label}
               </a>
             ))}
           </nav>
-          <div className="flex flex-col gap-3">
-            <button onClick={onLoginClick} className="w-full py-3 text-center text-gray-300 border border-white/10 rounded-xl hover:bg-white/5 transition-colors">Sign In</button>
-            <button onClick={() => { onSignupClick('free'); setMobileOpen(false) }} className="w-full py-3 text-center font-bold text-white rounded-xl" style={{ background: 'linear-gradient(135deg, #FF5000, #FF7A00)' }}>GET STARTED FREE</button>
+          <div className="mx-auto mt-4 grid max-w-7xl gap-3 border-t border-white/10 pt-4">
+            <button type="button" onClick={onLoginClick} className="tl-outline-action min-h-11 rounded-[var(--radius-control)] px-4 py-3 text-sm font-semibold">
+              Sign in
+            </button>
+            <button type="button" onClick={() => { onSignupClick('free'); setMobileOpen(false) }} className="tl-action min-h-11 rounded-[var(--radius-control)] px-4 py-3 text-sm font-semibold">
+              Request beta access
+            </button>
           </div>
         </div>
       )}

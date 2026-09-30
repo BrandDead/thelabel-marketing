@@ -1,9 +1,16 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import strongLogo from '../assets/pasted_file_8nQJT8_theLABEL-stronglogo.png'
+import BrandMark from './BrandMark.jsx'
+import { useReducedMotion } from '../hooks/useReducedMotion.js'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const studioProof = [
+  { value: '8', label: 'label departments' },
+  { value: '1', label: 'artist workspace' },
+  { value: 'Beta', label: 'founder access' },
+]
 
 const HeroNew = ({ onSignupClick }) => {
   const heroRef = useRef(null)
@@ -11,23 +18,30 @@ const HeroNew = ({ onSignupClick }) => {
   const headlineRef = useRef(null)
   const subRef = useRef(null)
   const ctaRef = useRef(null)
-  const statsRef = useRef(null)
+  const proofRef = useRef(null)
   const bgRef = useRef(null)
+  const reducedMotion = useReducedMotion()
 
   useEffect(() => {
+    if (reducedMotion) {
+      gsap.set([logoRef.current, ...headlineRef.current.children, subRef.current, ...ctaRef.current.children, ...proofRef.current.children], {
+        clearProps: 'all',
+      })
+      return undefined
+    }
+
     const ctx = gsap.context(() => {
-      // Initial entrance animation
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      const timeline = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-      tl.fromTo(logoRef.current, { opacity: 0, scale: 0.6, filter: 'blur(20px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.2 })
-        .fromTo(headlineRef.current?.children, { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.15 }, '-=0.4')
-        .fromTo(subRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.3')
-        .fromTo(ctaRef.current?.children, { opacity: 0, y: 20, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.1 }, '-=0.2')
-        .fromTo(statsRef.current?.children, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 }, '-=0.1')
+      timeline
+        .fromTo(logoRef.current, { opacity: 0, y: 18, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.55 })
+        .fromTo(headlineRef.current.children, { opacity: 0, y: 38 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.09 }, '-=0.2')
+        .fromTo(subRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45 }, '-=0.22')
+        .fromTo(ctaRef.current.children, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.08 }, '-=0.12')
+        .fromTo(proofRef.current.children, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.07 }, '-=0.08')
 
-      // Parallax on scroll
       gsap.to(bgRef.current, {
-        yPercent: 30,
+        yPercent: 14,
         ease: 'none',
         scrollTrigger: {
           trigger: heroRef.current,
@@ -36,106 +50,60 @@ const HeroNew = ({ onSignupClick }) => {
           scrub: true,
         },
       })
-
-      // Fade out hero on scroll
-      gsap.to(heroRef.current, {
-        opacity: 0,
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: '60% top',
-          end: 'bottom top',
-          scrub: true,
-        },
-      })
     }, heroRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [reducedMotion])
 
   return (
-    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Animated background */}
-      <div ref={bgRef} className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[#0A0B0F]" />
-        {/* Radial glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full opacity-20"
-          style={{ background: 'radial-gradient(circle, #FF5000 0%, transparent 70%)' }} />
-        <div className="absolute top-1/3 left-1/3 w-[600px] h-[600px] rounded-full opacity-10"
-          style={{ background: 'radial-gradient(circle, #29C5F6 0%, transparent 70%)' }} />
-        {/* Grid lines */}
-        <div className="absolute inset-0 opacity-[0.03]"
-          style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
-        {/* Noise texture */}
-        <div className="absolute inset-0 opacity-[0.015]"
-          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }} />
+    <section ref={heroRef} className="relative flex min-h-[min(820px,100svh)] items-center justify-center overflow-hidden px-5 pb-20 pt-28 sm:px-6 sm:pt-32">
+      <div ref={bgRef} className="absolute inset-0 -z-10" aria-hidden="true">
+        <div className="absolute inset-0 bg-[color:var(--color-canvas)]" />
+        <div className="absolute left-1/2 top-1/2 h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgb(200_16_46_/_22%)_0%,transparent_66%)]" />
+        <div className="absolute left-[20%] top-[24%] h-[24rem] w-[24rem] rounded-full bg-[radial-gradient(circle,rgb(41_197_246_/_12%)_0%,transparent_68%)]" />
+        <div className="absolute inset-0 opacity-[0.045] [background-image:linear-gradient(rgb(255_255_255_/_30%)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255_/_30%)_1px,transparent_1px)] [background-size:72px_72px]" />
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 text-center">
-        {/* Logo */}
-        <div ref={logoRef} className="mb-10 opacity-0">
-          <img src={strongLogo} alt="theLABEL" className="h-20 md:h-28 w-auto mx-auto" style={{ filter: 'drop-shadow(0 0 40px rgba(255,80,0,0.4))' }} />
+      <div className="mx-auto max-w-5xl text-center">
+        <div ref={logoRef} className="mb-10">
+          <BrandMark size="hero" decorative className="mx-auto drop-shadow-[0_12px_32px_rgb(200_16_46_/_24%)]" />
         </div>
 
-        {/* Headlines */}
-        <div ref={headlineRef} className="mb-8 overflow-hidden">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-none tracking-tight mb-4"
-            style={{ textShadow: '0 0 80px rgba(255,80,0,0.3)' }}>
-            NO MORE
+        <div ref={headlineRef} className="mb-7">
+          <h1 className="text-balance text-5xl font-black leading-[0.9] tracking-[-0.06em] text-white sm:text-7xl lg:text-8xl">
+            Build the career,
           </h1>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-none tracking-tight"
-            style={{ background: 'linear-gradient(135deg, #FF5000, #FF7A00, #29C5F6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            360 DEALS.
-          </h1>
+          <p className="mt-3 text-balance text-5xl font-black leading-[0.9] tracking-[-0.06em] text-[color:var(--tl-crimson-500)] sm:text-7xl lg:text-8xl">
+            not the chaos.
+          </p>
         </div>
 
-        {/* Subheadline */}
-        <p ref={subRef} className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed opacity-0">
-          Your AI-powered record label. The same tools major labels use to build superstars —{' '}
-          <span className="text-[#29C5F6] font-semibold">now in your hands.</span>{' '}
-          No gatekeepers. No middlemen. Just you and your art.
+        <p ref={subRef} className="mx-auto max-w-2xl text-pretty text-lg leading-8 text-[color:var(--color-text-muted)] sm:text-xl">
+          theLABEL gives independent artists an AI record-label team for strategy, story, sound, and rollout—built as a private beta around your actual work.
         </p>
 
-        {/* CTA Buttons */}
-        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20">
+        <div ref={ctaRef} className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <button
+            type="button"
             onClick={() => onSignupClick('free')}
-            className="group relative px-10 py-4 text-lg font-bold text-white rounded-full overflow-hidden transition-transform duration-200 hover:scale-105"
-            style={{ background: 'linear-gradient(135deg, #FF5000, #FF7A00)' }}
+            className="tl-action min-h-12 rounded-[var(--radius-control)] px-6 py-3 text-base font-semibold"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              ⚡ START FOR FREE
-            </span>
-            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+            Request beta access
           </button>
-          <a
-            href="#agents"
-            className="px-10 py-4 text-lg font-semibold text-white rounded-full border border-white/20 hover:border-white/40 hover:bg-white/5 transition-all duration-200"
-          >
-            See Your AI Team →
+          <a href="#agents" className="tl-outline-action min-h-12 rounded-[var(--radius-control)] px-6 py-3 text-base font-semibold">
+            Meet your label team
           </a>
         </div>
 
-        {/* Stats */}
-        <div ref={statsRef} className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
-          {[
-            { value: '8', label: 'AI Agents', suffix: '' },
-            { value: '24', label: 'Hour Coverage', suffix: '/7' },
-            { value: '100', label: 'Independent', suffix: '%' },
-          ].map(({ value, label, suffix }) => (
-            <div key={label} className="text-center opacity-0">
-              <div className="text-3xl md:text-4xl font-black text-white mb-1">
-                {value}<span className="text-[#FF5000]">{suffix}</span>
-              </div>
-              <div className="text-xs md:text-sm text-gray-500 uppercase tracking-widest">{label}</div>
+        <dl ref={proofRef} className="mx-auto mt-16 grid max-w-2xl grid-cols-3 border-y border-white/10">
+          {studioProof.map(({ value, label }) => (
+            <div key={label} className="px-3 py-5 sm:px-6">
+              <dt className="sr-only">{label}</dt>
+              <dd className="text-2xl font-bold tracking-tight text-white sm:text-3xl">{value}</dd>
+              <p className="mt-1 text-xs leading-4 text-[color:var(--color-text-muted)] sm:text-sm">{label}</p>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-600">
-        <span className="text-xs uppercase tracking-widest">Scroll</span>
-        <div className="w-px h-12 bg-gradient-to-b from-gray-600 to-transparent animate-pulse" />
+        </dl>
       </div>
     </section>
   )
