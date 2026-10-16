@@ -8,6 +8,10 @@ html {
   scroll-behavior: smooth;
 }
 
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
 /* Reset cursor to default - fix cursor lag */
 * {
   cursor: default !important;
