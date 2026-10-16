@@ -198,7 +198,7 @@ const Pricing = ({ onSignupClick }) => {
               Ready to Take Back Your Power?
             </h3>
             <p className="text-lg text-gray-300 mb-6">
-              Join thousands of independent artists who've ditched 360 deals and taken control of their careers. 
+              Independent artists use theLABEL to skip 360 deals and keep control of their careers.
               Start free, scale as you grow, keep everything you earn.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

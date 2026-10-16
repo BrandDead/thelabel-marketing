@@ -3,7 +3,9 @@
  * Handles communication with tl-store backend for marketplace discovery
  */
 
-const STORE_API_BASE = process.env.REACT_APP_STORE_API_URL || 'http://localhost:3000/api';
+const STORE_API_BASE =
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_STORE_API_URL) ||
+  'https://store.thelabelai.com/api';
 
 export interface Store {
   id: number;

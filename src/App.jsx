@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './App.css'
@@ -10,21 +10,17 @@ import Pricing from './components/Pricing.jsx'
 import Testimonials from './components/Testimonials.jsx'
 import FAQ from './components/FAQ.jsx'
 import FooterNew from './components/FooterNew.jsx'
+import { DASHBOARD_LOGIN_URL, dashboardSignupUrl } from './lib/urls.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
 function App() {
   const handleSignupClick = (planId = null, period = 'monthly') => {
-    let url = 'https://app.thelabelai.com/login'
-    if (planId && planId !== 'free') {
-      url += `?plan=${encodeURIComponent(planId)}`
-      if (period) url += `&period=${encodeURIComponent(period)}`
-    }
-    window.location.href = url
+    window.location.href = dashboardSignupUrl(planId, period)
   }
 
   const handleLoginClick = () => {
-    window.location.href = 'https://app.thelabelai.com/login'
+    window.location.href = DASHBOARD_LOGIN_URL
   }
 
   // Smooth scroll for anchor links
