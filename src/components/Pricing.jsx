@@ -125,7 +125,7 @@ const Pricing = ({ onSignupClick }) => {
                 {isYearly && savings > 0 && (
                   <div className="absolute -top-3 right-4">
                     <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                      Save ${savings}/yr
+                      Billed yearly
                     </span>
                   </div>
                 )}
