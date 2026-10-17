@@ -9,7 +9,7 @@ const agents = [
     id: 'manager',
     name: 'Artist Manager',
     role: 'Your Command Center',
-    description: 'The first agent you meet. Orchestrates all departments, handles high-level strategy, and routes requests to the right specialist.',
+    description: 'Start with the Manager for career planning and guidance on which department to work with next.',
     color: '#FF5000',
     glow: 'rgba(255,80,0,0.3)',
     emoji: '🎯',
@@ -19,47 +19,47 @@ const agents = [
     id: 'ar',
     name: 'A&R Agent',
     role: 'Talent & Trends',
-    description: 'Scans the industry 24/7 for collaboration opportunities, emerging trends, and placement deals before they blow up.',
+    description: 'Discuss your sound, release direction, and potential collaboration ideas. This is guidance, not a promise of placements or industry connections.',
     color: '#29C5F6',
     glow: 'rgba(41,197,246,0.3)',
     emoji: '🔍',
-    capabilities: ['Trend analysis', 'Collab discovery', 'Playlist pitching', 'Market intel'],
+    capabilities: ['Release direction', 'Collaboration ideas', 'Pitch planning', 'Artist development'],
   },
   {
     id: 'pr',
     name: 'PR Agent',
     role: 'Your Public Image',
-    description: 'Trains you for interviews, crafts press releases, and manages your narrative. Includes the PR Trainer for live practice sessions.',
+    description: 'Work on interview preparation, press-release drafts, and your artist story. Practice tools are subject to beta availability.',
     color: '#A855F7',
     glow: 'rgba(168,85,247,0.3)',
     emoji: '📣',
-    capabilities: ['Interview prep', 'Press releases', 'Crisis management', 'Brand narrative'],
+    capabilities: ['Interview prep', 'Press-release drafts', 'Response planning', 'Brand narrative'],
   },
   {
     id: 'design',
     name: 'Design Agent',
     role: 'Visual Identity',
-    description: 'Generates cover art, merch mockups, social content, and brand assets. Understands your aesthetic and stays consistent.',
+    description: 'Develop visual briefs, cover-art direction, and merch ideas. Generated-asset tools depend on the available beta integrations.',
     color: '#F59E0B',
     glow: 'rgba(245,158,11,0.3)',
     emoji: '🎨',
-    capabilities: ['Cover art', 'Merch design', 'Social graphics', 'Brand consistency'],
+    capabilities: ['Cover-art direction', 'Merch concepts', 'Social briefs', 'Brand direction'],
   },
   {
     id: 'marketing',
     name: 'Marketing Agent',
     role: 'Growth Engine',
-    description: 'Runs your social media, fan engagement, playlist outreach, and release campaigns around the clock.',
+    description: 'Plan releases, draft campaign ideas, and think through audience engagement. You review and carry out outreach; unattended scheduling is not promised.',
     color: '#10B981',
     glow: 'rgba(16,185,129,0.3)',
     emoji: '📈',
-    capabilities: ['Social media', 'Release campaigns', 'Fan engagement', 'Analytics'],
+    capabilities: ['Social planning', 'Release campaigns', 'Audience ideas', 'Campaign review'],
   },
   {
     id: 'songwriter',
     name: 'Songwriter Agent',
     role: 'Creative Partner',
-    description: 'Co-writes lyrics, suggests melodies, generates hooks, and helps you break through creative blocks at any hour.',
+    description: 'Explore lyric ideas, hooks, and song structure. Keep creative decisions yours; Studio tools are being refined during beta.',
     color: '#EC4899',
     glow: 'rgba(236,72,153,0.3)',
     emoji: '✍️',
@@ -69,21 +69,21 @@ const agents = [
     id: 'producer',
     name: 'Producer Agent',
     role: 'Beat Architect',
-    description: 'Guides production decisions, suggests arrangements, and powers the BeatBox Studio where you make beats with your mouth.',
+    description: 'Discuss production choices, arrangement ideas, and sound direction. The mouth-to-beat BeatBox workflow is in development, not a live beta promise.',
     color: '#6366F1',
     glow: 'rgba(99,102,241,0.3)',
     emoji: '🎹',
-    capabilities: ['Beat guidance', 'BeatBox Studio', 'Arrangement tips', 'Sound design'],
+    capabilities: ['Beat guidance', 'Rhythm ideas', 'Arrangement tips', 'Sound direction'],
   },
   {
     id: 'engineer',
     name: 'Engineer Agent',
     role: 'Sound Perfection',
-    description: 'Handles mixing notes, mastering guidance, technical audio analysis, and quality control for every release.',
+    description: 'Ask for mixing concepts and mastering guidance. Feedback is not a substitute for a professional engineer or a guaranteed release-ready master.',
     color: '#14B8A6',
     glow: 'rgba(20,184,166,0.3)',
     emoji: '🎚️',
-    capabilities: ['Mix feedback', 'Master guidance', 'Audio analysis', 'Quality control'],
+    capabilities: ['Mix concepts', 'Mastering guidance', 'Technical questions', 'Listening checklist'],
   },
 ]
 
@@ -193,13 +193,13 @@ const AgentsShowcase = () => {
             Your AI Department Heads
           </div>
           <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-            8 Agents Working<br />
+            8 AI Departments<br />
             <span style={{ background: 'linear-gradient(135deg, #FF5000, #29C5F6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              24/7 For You
+              Built Around You
             </span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Every department a major label has — replicated in AI and available the moment you need them.
+            A label-inspired support team in one artist dashboard. Beta access and available tools vary by release stage.
           </p>
         </div>
 
@@ -212,7 +212,7 @@ const AgentsShowcase = () => {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <p className="text-gray-500 text-sm mb-4">All agents available on every paid plan</p>
+          <p className="text-gray-500 text-sm mb-4">Check your dashboard for available tools and active plan limits</p>
           <a
             href="#pricing"
             className="inline-flex items-center gap-2 text-[#29C5F6] hover:text-white transition-colors font-semibold"

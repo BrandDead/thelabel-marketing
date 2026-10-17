@@ -90,9 +90,9 @@ const HeroNew = ({ onSignupClick }) => {
 
         {/* Subheadline */}
         <p ref={subRef} className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed opacity-0">
-          Your AI-powered record label. The same tools major labels use to build superstars —{' '}
-          <span className="text-[#29C5F6] font-semibold">now in your hands.</span>{' '}
-          No gatekeepers. No middlemen. Just you and your art.
+          Your AI-powered record label, built for independent artists. Explore the beta —{' '}
+          <span className="text-[#29C5F6] font-semibold">plan, practice, and create on your terms.</span>{' '}
+          Tools and access vary as the beta develops. You stay in control.
         </p>
 
         {/* CTA Buttons */}
@@ -103,7 +103,7 @@ const HeroNew = ({ onSignupClick }) => {
             style={{ background: 'linear-gradient(135deg, #FF5000, #FF7A00)' }}
           >
             <span className="relative z-10 flex items-center gap-2">
-              ⚡ START FOR FREE
+              EXPLORE THE BETA
             </span>
             <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
           </button>
@@ -119,7 +119,7 @@ const HeroNew = ({ onSignupClick }) => {
         <div ref={statsRef} className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
           {[
             { value: '8', label: 'AI Agents', suffix: '' },
-            { value: '24', label: 'Hour Coverage', suffix: '/7' },
+            { value: 'Beta', label: 'In Development', suffix: '' },
             { value: '100', label: 'Independent', suffix: '%' },
           ].map(({ value, label, suffix }) => (
             <div key={label} className="text-center opacity-0">

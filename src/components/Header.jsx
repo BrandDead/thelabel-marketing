@@ -52,7 +52,7 @@ const Header = ({ onSignupClick, onLoginClick }) => {
             className="relative px-6 py-2.5 text-sm font-bold text-white rounded-full overflow-hidden group"
             style={{ background: 'linear-gradient(135deg, #FF5000, #FF7A00)' }}
           >
-            <span className="relative z-10">GET STARTED FREE</span>
+            <span className="relative z-10">EXPLORE THE BETA</span>
             <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
           </button>
         </div>
@@ -78,7 +78,7 @@ const Header = ({ onSignupClick, onLoginClick }) => {
           </nav>
           <div className="flex flex-col gap-3">
             <button type="button" onClick={onLoginClick} className="w-full py-3 text-center text-gray-300 border border-white/10 rounded-xl hover:bg-white/5 transition-colors">Sign In</button>
-            <button onClick={() => { onSignupClick('free'); setMobileOpen(false) }} className="w-full py-3 text-center font-bold text-white rounded-xl" style={{ background: 'linear-gradient(135deg, #FF5000, #FF7A00)' }}>GET STARTED FREE</button>
+            <button onClick={() => { onSignupClick('free'); setMobileOpen(false) }} className="w-full py-3 text-center font-bold text-white rounded-xl" style={{ background: 'linear-gradient(135deg, #FF5000, #FF7A00)' }}>EXPLORE THE BETA</button>
           </div>
         </div>
       )}

@@ -66,8 +66,7 @@ const Pricing = ({ onSignupClick }) => {
             "it's levels to this" - meek mill
           </p>
           <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-            From bedroom producer to chart-topping legend. Scale your tools as you scale your career. 
-            No contracts, no commitments - just pure creative power.
+            Explore the plan options without leaving the beta behind. Available tools and your active usage limits are shown in the artist dashboard; confirm them before upgrading.
           </p>
 
           {/* Billing Toggle */}
@@ -117,7 +116,7 @@ const Pricing = ({ onSignupClick }) => {
                 {plan.popular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                     <span className="bg-[#FF5000] text-white px-4 py-1 rounded-full text-sm font-bold">
-                      MOST POPULAR
+                      FEATURED PLAN
                     </span>
                   </div>
                 )}
@@ -126,7 +125,7 @@ const Pricing = ({ onSignupClick }) => {
                 {isYearly && savings > 0 && (
                   <div className="absolute -top-3 right-4">
                     <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                      Save ${savings}/yr
+                      Billed yearly
                     </span>
                   </div>
                 )}
@@ -198,8 +197,7 @@ const Pricing = ({ onSignupClick }) => {
               Ready to Take Back Your Power?
             </h3>
             <p className="text-lg text-gray-300 mb-6">
-              Independent artists use theLABEL to skip 360 deals and keep control of their careers.
-              Start free, scale as you grow, keep everything you earn.
+              Build your next step with AI guidance while keeping creative decisions in your hands. Explore the dashboard before choosing a paid plan.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button 
@@ -207,10 +205,10 @@ const Pricing = ({ onSignupClick }) => {
                 size="lg"
                 className="bg-[#FF5000] hover:bg-[#FF5000]/80 text-white px-8 py-4 text-lg font-semibold electric-pulse"
               >
-                Start Your Revolution
+                Explore the Beta
               </Button>
               <p className="text-sm text-gray-400">
-                No credit card required • Cancel anytime • Keep your rights
+                Beta access • Plan limits apply • Keep creative control
               </p>
             </div>
           </div>
@@ -222,15 +220,15 @@ const Pricing = ({ onSignupClick }) => {
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <div className="text-left">
               <h4 className="text-white font-semibold mb-2">Do you take royalties?</h4>
-              <p className="text-gray-400 text-sm">Never. You keep 100% of everything you earn.</p>
+              <p className="text-gray-400 text-sm">This is a support platform, not a record deal. Third-party costs may still apply.</p>
             </div>
             <div className="text-left">
               <h4 className="text-white font-semibold mb-2">Can I cancel anytime?</h4>
-              <p className="text-gray-400 text-sm">Yes, no contracts or commitments.</p>
+              <p className="text-gray-400 text-sm">Manage subscription billing in the artist dashboard.</p>
             </div>
             <div className="text-left">
               <h4 className="text-white font-semibold mb-2">Is this really AI?</h4>
-              <p className="text-gray-400 text-sm">Yes, trained on decades of industry data.</p>
+              <p className="text-gray-400 text-sm">Yes. AI guidance can make mistakes; review it before acting.</p>
             </div>
           </div>
         </div>

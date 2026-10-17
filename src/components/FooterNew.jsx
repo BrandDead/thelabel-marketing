@@ -51,7 +51,7 @@ const FooterNew = ({ onSignupClick }) => {
           </span>
         </h2>
         <p className="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
-          Open the artist dashboard to start free, then upgrade when the work demands it.
+          Explore the artist dashboard beta. Check available tools and plan limits before upgrading.
         </p>
         <button
           type="button"
@@ -59,7 +59,7 @@ const FooterNew = ({ onSignupClick }) => {
           className="px-12 py-4 text-lg font-bold text-white rounded-full transition-transform hover:scale-105"
           style={{ background: 'linear-gradient(135deg, #FF5000, #FF7A00)' }}
         >
-          Start Free Today
+          Explore the Beta
         </button>
       </div>
 
@@ -69,7 +69,7 @@ const FooterNew = ({ onSignupClick }) => {
             <div className="md:col-span-2">
               <img src={strongLogo} alt="theLABEL AI - AI-Powered Record Label Platform" className="h-10 w-auto mb-4" />
               <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                theLABEL is the AI-powered record label platform for independent artists. Access A&R, PR, design, marketing, songwriting, production, and engineering agents — all in one dashboard.
+                theLABEL is a label-inspired AI support platform for independent artists. Explore department-led guidance in the artist dashboard beta; tool availability varies by release stage.
               </p>
             </div>
 
@@ -109,7 +109,7 @@ const FooterNew = ({ onSignupClick }) => {
 
           <div className="mt-8 text-xs text-gray-700 leading-relaxed">
             <p>
-              theLABEL AI is an AI-powered record label platform for independent artists. Features include AI music production, AI songwriting assistant, AI marketing automation, AI A&R discovery, AI PR training, AI cover art generation, BeatBox vocal-to-MIDI studio, and 24/7 artist management. Available for unsigned artists, independent musicians, music producers, and songwriters. Plans starting free.
+              theLABEL AI is developing an artist-support dashboard for unsigned artists, independent musicians, producers, and songwriters. Explore AI guidance across Manager, A&R, PR, Design, Marketing, Songwriter, Producer, and Engineer departments. Studio and automation workflows are still being refined; beta access is not a promise of distribution, unattended outreach, or professional audio output.
             </p>
           </div>
         </div>

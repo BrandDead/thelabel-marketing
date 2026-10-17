@@ -16,15 +16,15 @@ const FAQ = () => {
       questions: [
         {
           q: "What is theLABEL and how does it work?",
-          a: "theLABEL is an AI-powered music platform that gives independent artists access to the same tools and resources major labels use. Our platform includes AI producers, marketing automation, distribution tools, design agents, and analytics - all working 24/7 to help you build your music career without signing away your rights."
+          a: "theLABEL is a label-inspired AI support dashboard for independent artists. Explore department-led guidance for creative work, interview preparation, and release planning. We are in beta: available tools depend on release stage and your active account limits, and automated services are not guaranteed."
         },
         {
           q: "Do I need any experience to use theLABEL?",
-          a: "No! Whether you're a bedroom producer or a seasoned artist, theLABEL is designed to be intuitive. Our AI agents guide you through every step - from production to marketing to distribution. If you can make music, you can use theLABEL."
+          a: "You can start with ideas and questions rather than technical expertise. The beta is still being refined, so some tools need experimentation and your own review. AI guidance can be wrong; you remain responsible for decisions and published work."
         },
         {
           q: "How is this different from a traditional record label?",
-          a: "Traditional labels take 80-90% of your revenue and own your masters through 360 deals. theLABEL charges a flat monthly fee and you keep 100% of your rights and royalties. You get all the resources of a major label (A&R, marketing, production, distribution) without giving up ownership or creative control."
+          a: "theLABEL is a support platform, not a record deal or a replacement for every professional service. You choose how to use its guidance and which projects to pursue. Paid access, where available, is managed in the artist dashboard."
         }
       ]
     },
@@ -33,19 +33,19 @@ const FAQ = () => {
       questions: [
         {
           q: "Is there really a free plan?",
-          a: "Yes! Our Free tier gives you access to basic AI tools, limited beats per month, and distribution to major platforms. It's perfect for testing theLABEL and seeing if it's right for you. Upgrade anytime as your career grows."
+          a: "The Free plan is the starting option for basic AI chat and an artist workspace, with account usage limits. It does not include music distribution or unlimited AI use. Check your dashboard for access and the tools currently enabled in beta."
         },
         {
           q: "Can I cancel anytime?",
-          a: "Absolutely. No contracts, no commitments. Cancel with one click from your dashboard. If you cancel, you keep access until the end of your billing period, and you always keep 100% ownership of everything you created."
+          a: "Manage subscription billing from the artist dashboard. Review the plan and billing terms there before upgrading or cancelling; access and billing status are determined by your account and the payment provider."
         },
         {
           q: "What's included in the yearly discount?",
-          a: "Pay yearly and save 17% on all paid plans (two months free). The yearly price is shown on the pricing cards and applied when you check out in the artist dashboard."
+          a: "The advertised yearly plan totals are displayed on the pricing cards. Selecting a plan carries that plan and billing period to the artist dashboard; review the final price and available access there before paying."
         },
         {
           q: "Do you offer refunds?",
-          a: "Billing is handled in the artist dashboard. Email support@thelabelai.com with the account email and we will walk through the options on your plan."
+          a: "Billing is handled in the artist dashboard. Email support@thelabelai.com with your account email for help reviewing the applicable billing terms. This page does not promise a refund outcome."
         }
       ]
     },
@@ -54,19 +54,19 @@ const FAQ = () => {
       questions: [
         {
           q: "What AI tools are included?",
-          a: "Every plan includes: AI producers trained on Grammy-winning techniques, marketing automation agents, design tools for cover art and merch, lyric assistance, beat generation, playlist pitching automation, social media management, and real-time analytics. Higher tiers unlock more advanced features and higher limits."
+          a: "The dashboard brings together label-inspired AI departments. Tools and limits vary by plan and release stage; not every department description is a live automated service. BeatBox voice-to-MIDI, unattended outreach, and distribution are not promised as working beta features."
         },
         {
           q: "Can I distribute my music to Spotify, Apple Music, etc.?",
-          a: "Distribution tools are part of the platform so you can get releases onto the major streaming and social destinations. You keep the royalties from those releases — theLABEL does not take a streaming cut."
+          a: "Music distribution to Spotify, Apple Music, and other platforms is not a verified beta service and is not included as a Free-plan benefit. Use your chosen distributor for releases; guidance on release planning is not the same as distribution."
         },
         {
           q: "How does the AI producer work?",
-          a: "Our AI producers are trained on production techniques from Grammy-winning producers. Tell the AI your genre, mood, and vision, and it generates beats, suggests arrangements, and helps with mixing/mastering. It's like having Timbaland or Metro Boomin in your studio 24/7."
+          a: "The Producer department can help you discuss beat ideas, arrangements, and production choices. It is AI guidance, not a celebrity producer or a guaranteed finished master. The full mouth-to-beat, MIDI, and VST workflow remains in development."
         },
         {
           q: "What kind of marketing support do I get?",
-          a: "Our AI marketing agents handle playlist pitching, social media scheduling, email campaigns, influencer outreach, and TikTok strategy. They work 24/7 analyzing trends and finding opportunities to grow your audience while you focus on making music."
+          a: "Use AI guidance to draft campaign ideas, release timelines, and outreach messages. You review and execute actions. Automated pitching, scheduling, influencer outreach, and live growth reporting are not promised during beta."
         }
       ]
     },
@@ -75,15 +75,15 @@ const FAQ = () => {
       questions: [
         {
           q: "Who owns my music and masters?",
-          a: "YOU DO. 100%. Always. We never take ownership of your music, masters, publishing, or any other rights. theLABEL is a tool, not a label. You pay for access to our AI platform, and everything you create belongs entirely to you."
+          a: "theLABEL is a tool for your creative work, not a record-label signing agreement. Keep control of what you upload, create, and approve. Review the platform terms and any third-party provider licences before commercial use of generated material."
         },
         {
           q: "What happens to my music if I cancel?",
-          a: "All your music, beats, artwork, and data remain 100% yours forever. You can export everything and keep using it however you want. Your distributed music stays live on streaming platforms (you'll just need to manage it directly or through another distributor)."
+          a: "Keep your own copies of your work and any exports you need. Beta Studio saves may be device-local rather than cloud backups. Account cancellation does not establish that every tool supports export or that a third-party release remains available."
         },
         {
           q: "Are there any hidden fees or royalty splits?",
-          a: "Zero. The price you see is what you pay. We don't take percentages of your streams, merch sales, show revenue, or anything else. Your monthly/yearly subscription is the only cost. You keep 100% of all revenue you generate."
+          a: "A platform subscription is separate from any third-party distribution, manufacturing, shipping, taxes, or payment-processing costs that may apply. Review the total and relevant provider terms before confirming a purchase or service."
         }
       ]
     },
@@ -92,15 +92,15 @@ const FAQ = () => {
       questions: [
         {
           q: "What if I need help or have questions?",
-          a: "Email support@thelabelai.com from the address on your account. Paid plans are prioritized when volume is high."
+          a: "Email support@thelabelai.com from the address on your account. We do not promise a particular response time or dedicated account manager during beta."
         },
         {
           q: "Is my data and music secure?",
-          a: "Yes. We use bank-level encryption (AES-256) for all data. Your music files are stored on secure, redundant servers with automatic backups. We're GDPR compliant and never share or sell your data. Your intellectual property is protected."
+          a: "Use a trusted device and keep copies of important work. Some beta Studio data may be saved locally in your browser rather than backed up to the cloud. See the Privacy Policy for data handling; this page does not claim a security certification, comprehensive backups, or GDPR certification."
         },
         {
           q: "What devices and browsers are supported?",
-          a: "theLABEL works on any modern browser (Chrome, Firefox, Safari, Edge) on Mac, Windows, or Linux. Our mobile app is coming soon. Some AI tools work best on desktop for now, but you can manage your account and check analytics from any device."
+          a: "The beta is browser-based. Start with a current desktop browser and check device permissions when using audio tools. Mobile and cross-browser behavior are still being validated; no mobile-app release date is promised."
         }
       ]
     }
@@ -168,7 +168,7 @@ const FAQ = () => {
         <div className="mt-12 text-center glassmorphism p-8 rounded-xl">
           <h3 className="text-2xl font-bold text-white mb-4">Still have questions?</h3>
           <p className="text-gray-300 mb-6">
-            Our team is here to help. Get in touch and we'll respond within 24 hours.
+            Have a beta question? Email the team; response times may vary.
           </p>
           <a 
             href="mailto:support@thelabelai.com"
