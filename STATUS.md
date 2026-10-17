@@ -1,32 +1,39 @@
 # theLABEL marketing status
 
-_Current operating truth — 23 September 2026_
+_Current operating truth — 16 October 2026_
 
 ---
 
 ## Role in theLABEL
 
-`thelabel-marketing` is the **public artist-acquisition site** for theLABEL. Its primary job is to give prospective artists a clear reason to join and send them to the authenticated dashboard at `https://app.thelabelai.com/login`. It is not a commerce backend, a game property, or the home for experimental product assets.
+`thelabel-marketing` is the **public artist-acquisition site** for theLABEL. Its job is to explain the product and send artists to the live apps:
 
-> **Current state:** The site remains a brochure and acquisition surface. The active brand-foundation work is draft pull request [#30](https://github.com/BrandDead/thelabel-marketing/pull/30); its disposition needs a focused review before any production merge.
+| Surface | Production URL |
+| --- | --- |
+| Marketing | `https://thelabelai.com` |
+| Artist dashboard | `https://app.thelabelai.com/login` |
+| Artist stores | `https://store.thelabelai.com` |
+
+It is not a commerce backend, a game property, or the home for experimental product assets.
 
 ## Current contract
 
 | Area | Current truth |
 | --- | --- |
-| Primary conversion path | `START FOR FREE` / `GET STARTED FREE` to theLABEL dashboard login |
+| Primary conversion path | `GET STARTED FREE` / `START FOR FREE` → `https://app.thelabelai.com/login` |
+| Storefront path | Header/footer **Stores** → `https://store.thelabelai.com` |
+| Auth shortcuts | `/login`, `/signup`, `/register` redirect to the dashboard login; `/dashboard` redirects to the dashboard; `/store` and `/stores` redirect to the storefront |
 | Deployment | Vite static site on Vercel |
-| Package manager | pnpm 10.4.1 with `pnpm-lock.yaml` |
+| Package manager | pnpm 10.4.1 with `pnpm-lock.yaml` only |
 | CI contract | Node 22, `pnpm install --frozen-lockfile`, lint, and build |
-| Analytics | `VITE_GA_MEASUREMENT_ID` is optional and public at build time; confirm its Vercel configuration separately |
-| Slide assets | Removed from the current marketing tree and ignored to prevent reintroduction |
+| Analytics | `VITE_GA_MEASUREMENT_ID` is optional. The placeholder Meta Pixel was removed until a real pixel ID is provided |
+| Slide assets | Removed from the marketing tree and ignored |
 
-## Immediate operating gates
+## Launch notes
 
-1. **Review pull request #30:** Keep its scope limited to the artist-acquisition experience, accessibility, and conversion path. Merge only after the current main branch and required CI are reviewed together.
-2. **Resolve issue #10:** Replace the obsolete beta checklist with the current acquisition release gate, or close it as superseded with a documented replacement.
-3. **Keep one package manager:** Use pnpm and commit only `pnpm-lock.yaml`. Do not restore `package-lock.json` without an explicit package-manager decision.
-4. **Keep brand boundaries explicit:** Slide is a separate 18+ game property. Public theLABEL marketing must not carry its weapons, drug, character, or sprite assets.
+- Draft PR #30 (`feat/brand-foundation-motion`) is a private-beta visual rewrite. It was not merged for launch; reopen it after rebase if the owner wants that identity system.
+- The live storefront title is “Artist Storefronts”; merch checkout is not yet selling. Marketing links to the real store URL and does not invent catalog items.
+- Unused `Discover.jsx` mock stores stay off the homepage on purpose.
 
 ## Verification commands
 
@@ -36,8 +43,4 @@ pnpm lint
 pnpm build
 ```
 
-These commands verify the static site. They do not prove analytics configuration, dashboard authentication, or conversion performance.
-
-## Historical records
-
-February continuity and final-summary documents describe an earlier site state. Treat them as historical notes; this file and the repository's current `main` branch describe the active operating position.
+These commands verify the static site. They do not prove analytics configuration, dashboard authentication, store catalog health, or conversion performance.

@@ -41,11 +41,11 @@ const FAQ = () => {
         },
         {
           q: "What's included in the yearly discount?",
-          a: "Pay yearly and save 20% on all paid plans. Plus, you get priority support, early access to new features, and exclusive masterclasses with industry professionals. The yearly discount applies automatically at checkout."
+          a: "Pay yearly and save 17% on all paid plans (two months free). The yearly price is shown on the pricing cards and applied when you check out in the artist dashboard."
         },
         {
           q: "Do you offer refunds?",
-          a: "We offer a 14-day money-back guarantee on all paid plans. If theLABEL isn't right for you, just email support within 14 days for a full refund, no questions asked."
+          a: "Billing is handled in the artist dashboard. Email support@thelabelai.com with the account email and we will walk through the options on your plan."
         }
       ]
     },
@@ -58,7 +58,7 @@ const FAQ = () => {
         },
         {
           q: "Can I distribute my music to Spotify, Apple Music, etc.?",
-          a: "Yes! All plans (including Free) include distribution to 150+ platforms including Spotify, Apple Music, YouTube Music, TikTok, Instagram, and more. You keep 100% of your royalties - we never take a cut of your streaming revenue."
+          a: "Distribution tools are part of the platform so you can get releases onto the major streaming and social destinations. You keep the royalties from those releases — theLABEL does not take a streaming cut."
         },
         {
           q: "How does the AI producer work?",
@@ -92,7 +92,7 @@ const FAQ = () => {
       questions: [
         {
           q: "What if I need help or have questions?",
-          a: "All plans include email support. Pro and higher tiers get priority support with faster response times. Label and Legend tiers include dedicated account managers. We also have an extensive knowledge base, video tutorials, and active community forums."
+          a: "Email support@thelabelai.com from the address on your account. Paid plans are prioritized when volume is high."
         },
         {
           q: "Is my data and music secure?",

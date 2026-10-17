@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react'
 import strongLogo from '../assets/pasted_file_8nQJT8_theLABEL-stronglogo.png'
+import { STORES_URL } from '../lib/urls.js'
+
+const navLinks = [
+  ['Features', '#features'],
+  ['Agents', '#agents'],
+  ['Pricing', '#pricing'],
+  ['FAQ', '#faq'],
+]
 
 const Header = ({ onSignupClick, onLoginClick }) => {
   const [scrolled, setScrolled] = useState(false)
@@ -25,7 +33,7 @@ const Header = ({ onSignupClick, onLoginClick }) => {
         </a>
 
         <nav className="hidden md:flex items-center gap-8">
-          {[['Features','#features'],['Agents','#agents'],['Pricing','#pricing'],['About','#about']].map(([label, href]) => (
+          {navLinks.map(([label, href]) => (
             <a key={label} href={href} className="text-sm font-medium text-gray-400 hover:text-white transition-colors duration-200 tracking-wide uppercase">
               {label}
             </a>
@@ -33,7 +41,10 @@ const Header = ({ onSignupClick, onLoginClick }) => {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <button onClick={onLoginClick} className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
+          <a href={STORES_URL} className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
+            Stores
+          </a>
+          <button type="button" onClick={onLoginClick} className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
             Sign In
           </button>
           <button
@@ -56,14 +67,17 @@ const Header = ({ onSignupClick, onLoginClick }) => {
       {mobileOpen && (
         <div className="md:hidden bg-[#0A0B0F]/98 backdrop-blur-xl border-t border-white/5 px-6 py-6">
           <nav className="flex flex-col gap-4 mb-6">
-            {[['Features','#features'],['Agents','#agents'],['Pricing','#pricing'],['About','#about']].map(([label, href]) => (
+            {navLinks.map(([label, href]) => (
               <a key={label} href={href} onClick={() => setMobileOpen(false)} className="text-base font-medium text-gray-300 hover:text-white transition-colors py-2 border-b border-white/5">
                 {label}
               </a>
             ))}
+            <a href={STORES_URL} onClick={() => setMobileOpen(false)} className="text-base font-medium text-gray-300 hover:text-white transition-colors py-2 border-b border-white/5">
+              Stores
+            </a>
           </nav>
           <div className="flex flex-col gap-3">
-            <button onClick={onLoginClick} className="w-full py-3 text-center text-gray-300 border border-white/10 rounded-xl hover:bg-white/5 transition-colors">Sign In</button>
+            <button type="button" onClick={onLoginClick} className="w-full py-3 text-center text-gray-300 border border-white/10 rounded-xl hover:bg-white/5 transition-colors">Sign In</button>
             <button onClick={() => { onSignupClick('free'); setMobileOpen(false) }} className="w-full py-3 text-center font-bold text-white rounded-xl" style={{ background: 'linear-gradient(135deg, #FF5000, #FF7A00)' }}>GET STARTED FREE</button>
           </div>
         </div>

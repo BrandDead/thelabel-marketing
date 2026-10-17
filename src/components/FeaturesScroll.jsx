@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { DASHBOARD_LOGIN_URL } from '../lib/urls.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -90,8 +91,8 @@ const FeaturePanel = ({ feature, index }) => {
           </div>
           <h3 className="text-3xl md:text-4xl font-black text-white mb-4">{feature.title}</h3>
           <p className="text-gray-400 leading-relaxed mb-8">{feature.description}</p>
-          <a href="https://app.thelabelai.com/login" className="inline-flex items-center gap-2 font-semibold transition-colors hover:opacity-80" style={{ color: feature.color }}>
-            Try it now →
+          <a href={DASHBOARD_LOGIN_URL} className="inline-flex items-center gap-2 font-semibold transition-colors hover:opacity-80" style={{ color: feature.color }}>
+            Open in the dashboard →
           </a>
         </div>
 
@@ -162,11 +163,11 @@ const FeaturesScroll = ({ onSignupClick }) => {
 
         <div className="text-center mt-16">
           <button
-            onClick={() => onSignupClick('creator')}
+            onClick={() => onSignupClick('free')}
             className="px-10 py-4 text-lg font-bold text-white rounded-full transition-transform hover:scale-105"
             style={{ background: 'linear-gradient(135deg, #FF5000, #FF7A00)' }}
           >
-            Access All Features Free →
+            Start Free in the Dashboard →
           </button>
         </div>
       </div>

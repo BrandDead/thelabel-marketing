@@ -69,13 +69,22 @@ jobs:
           echo "  status: $(curl -s -o /dev/null -w '%{http_code}' --max-time 20 https://thelabelai.com)"
 
           echo "Login redirect (/login):"
-          curl -s -I --max-time 20 https://thelabelai.com/login | grep -i '^location:' || echo "  (no Location header)"
+          curl -sI --max-time 20 https://thelabelai.com/login | grep -i '^location:' || echo "  (no Location header)"
 
           echo "Signup redirect (/signup):"
-          curl -s -I --max-time 20 https://thelabelai.com/signup | grep -i '^location:' || echo "  (no Location header)"
+          curl -sI --max-time 20 https://thelabelai.com/signup | grep -i '^location:' || echo "  (no Location header)"
 
-          echo "WWW redirect (https://www.thelabelai.com):"
-          curl -s -I --max-time 20 https://www.thelabelai.com | grep -i '^location:' || echo "  (no Location header)"
+          echo "Stores redirect (/stores):"
+          curl -sI --max-time 20 https://thelabelai.com/stores | grep -i '^location:' || echo "  (no Location header)"
+
+          echo "Dashboard (https://app.thelabelai.com/login):"
+          echo "  status: $(curl -s -o /dev/null -w '%{http_code}' --max-time 20 https://app.thelabelai.com/login)"
+
+          echo "Stores (https://store.thelabelai.com):"
+          echo "  status: $(curl -s -o /dev/null -w '%{http_code}' --max-time 20 https://store.thelabelai.com)"
+
+          echo "WWW (https://www.thelabelai.com):"
+          echo "  status: $(curl -s -o /dev/null -w '%{http_code}' --max-time 20 https://www.thelabelai.com)"
 
           echo
           echo "Health check complete."

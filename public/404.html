@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page not found — theLABEL</title>
+  <link rel="icon" type="image/png" href="/tl-icon.png" />
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      background: #0A0B0F;
+      color: #fff;
+      padding: 32px;
+    }
+    main { max-width: 520px; text-align: center; }
+    p.kicker { letter-spacing: 0.2em; text-transform: uppercase; color: #FF5000; font-size: 12px; font-weight: 700; }
+    h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); margin: 12px 0 16px; letter-spacing: -0.04em; }
+    p.copy { color: #9ca3af; line-height: 1.6; margin-bottom: 32px; }
+    nav { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    a.primary { background: linear-gradient(135deg, #FF5000, #FF7A00); color: #fff; }
+    a.ghost { border: 1px solid rgba(255,255,255,0.16); color: #fff; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="kicker">404</p>
+    <h1>This page isn’t on theLABEL.</h1>
+    <p class="copy">The artist dashboard and storefronts live on their own domains. Head back to the marketing site, or go straight to the product.</p>
+    <nav>
+      <a class="primary" href="/">Back to theLABEL</a>
+      <a class="ghost" href="https://app.thelabelai.com/login">Artist dashboard</a>
+      <a class="ghost" href="https://store.thelabelai.com">Artist stores</a>
+    </nav>
+  </main>
+</body>
+</html>
