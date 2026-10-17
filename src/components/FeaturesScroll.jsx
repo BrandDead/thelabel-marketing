@@ -9,42 +9,42 @@ const features = [
   {
     id: 'beatbox',
     title: 'BeatBox Studio',
-    tagline: 'Make beats with your mouth',
-    description: 'No musical training needed. Hum a rhythm, sing a melody, describe a sound — BeatBox converts your voice into professional MIDI beats with real VST instruments.',
+    tagline: 'In development: beats from your voice',
+    description: 'Our goal is to turn mouth-made rhythms and melodies into instrument-based beats. The full voice-to-MIDI and VST workflow is still in development and is not included as a working invited-beta feature.',
     color: '#6366F1',
     bg: 'from-indigo-950 to-[#0A0B0F]',
     icon: '🎤',
-    steps: ['Record your voice', 'AI converts to MIDI', 'Choose your instrument', 'Export studio quality'],
+    steps: ['Capture a rhythm idea', 'Explore the prototype', 'MIDI and instruments: in development', 'Export quality: not yet verified'],
   },
   {
     id: 'pr-trainer',
     title: 'PR Trainer',
-    tagline: 'Master every interview',
-    description: 'Practice with AI versions of real interviewers — from Charlamagne to Howard Stern. Get scored on your answers, dodge gossip traps, and leave every interview memorable.',
+    tagline: 'Practice telling your story',
+    description: 'Develop interview answers, rehearse your artist story, and practice handling difficult questions. Beta practice tools use AI guidance, not endorsed or verified replicas of real interviewers.',
     color: '#A855F7',
     bg: 'from-purple-950 to-[#0A0B0F]',
     icon: '🎙️',
-    steps: ['Pick your interviewer', 'Answer live questions', 'Get real-time feedback', 'Track your improvement'],
+    steps: ['Choose a practice topic', 'Draft your answers', 'Review AI feedback', 'Refine your artist story'],
   },
   {
     id: 'design',
     title: 'Design Agent',
-    tagline: 'Your visual identity on demand',
-    description: 'Generate cover art, merch mockups, social posts, and brand assets in seconds. The AI understands your aesthetic and keeps everything consistent.',
+    tagline: 'Shape your visual direction',
+    description: 'Build a visual brief for cover art, merch, and social content. Image-generation and publishing tools depend on beta availability; review any output before use.',
     color: '#F59E0B',
     bg: 'from-amber-950 to-[#0A0B0F]',
     icon: '🎨',
-    steps: ['Describe your vision', 'AI generates options', 'Refine with feedback', 'Download & publish'],
+    steps: ['Describe your vision', 'Develop a creative brief', 'Review available tools', 'Approve your next step'],
   },
   {
     id: 'marketing',
-    title: 'Marketing Machine',
-    tagline: 'Your team never sleeps',
-    description: 'Automated playlist pitching, social scheduling, fan engagement, and release campaigns. Your marketing agent works 24/7 while you focus on creating.',
+    title: 'Marketing Agent',
+    tagline: 'Plan your next release',
+    description: 'Work on campaign ideas, release timelines, and outreach drafts. You stay responsible for approvals and execution; automated pitching, scheduling, and live result tracking are not promised in beta.',
     color: '#10B981',
     bg: 'from-emerald-950 to-[#0A0B0F]',
     icon: '📈',
-    steps: ['Set your goals', 'AI builds campaigns', 'Automate outreach', 'Track results live'],
+    steps: ['Set your goals', 'Draft a campaign plan', 'Review your outreach', 'Carry out approved actions'],
   },
 ]
 
@@ -92,13 +92,13 @@ const FeaturePanel = ({ feature, index }) => {
           <h3 className="text-3xl md:text-4xl font-black text-white mb-4">{feature.title}</h3>
           <p className="text-gray-400 leading-relaxed mb-8">{feature.description}</p>
           <a href={DASHBOARD_LOGIN_URL} className="inline-flex items-center gap-2 font-semibold transition-colors hover:opacity-80" style={{ color: feature.color }}>
-            Open in the dashboard →
+            Explore the beta dashboard →
           </a>
         </div>
 
         {/* Steps */}
         <div className="p-10 flex flex-col justify-center border-l border-white/5">
-          <p className="text-xs uppercase tracking-widest text-gray-600 mb-6">How it works</p>
+          <p className="text-xs uppercase tracking-widest text-gray-600 mb-6">Workflow direction</p>
           <div className="space-y-4">
             {feature.steps.map((step, i) => (
               <div key={i} className="flex items-center gap-4">
@@ -142,16 +142,16 @@ const FeaturesScroll = ({ onSignupClick }) => {
         <div ref={titleRef} className="text-center mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#29C5F6]/30 bg-[#29C5F6]/5 text-[#29C5F6] text-sm font-semibold mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-[#29C5F6] animate-pulse" />
-            Signature Features
+            Beta Tools & Development
           </div>
           <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-            Tools That Actually<br />
+            Tools Built For<br />
             <span style={{ background: 'linear-gradient(135deg, #29C5F6, #A855F7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              Move the Needle
+              Your Next Step
             </span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Not just another dashboard. These are the tools that change how independent artists operate.
+            Explore the beta tools and the workflows we are building toward. Development concepts are not guarantees of live services.
           </p>
         </div>
 
@@ -167,7 +167,7 @@ const FeaturesScroll = ({ onSignupClick }) => {
             className="px-10 py-4 text-lg font-bold text-white rounded-full transition-transform hover:scale-105"
             style={{ background: 'linear-gradient(135deg, #FF5000, #FF7A00)' }}
           >
-            Start Free in the Dashboard →
+            Explore the Beta Dashboard →
           </button>
         </div>
       </div>

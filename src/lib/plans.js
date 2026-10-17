@@ -1,8 +1,8 @@
 /**
- * theLABEL AI - Subscription Plans Configuration
- * 
- * Aligned across marketing website and dashboard
- * Yearly subscriptions save 17% (2 months free)
+ * theLABEL AI - Public plan copy
+ *
+ * Prices and identifiers are unchanged. Runtime account limits are authoritative
+ * in the dashboard; beta tool availability is not a promise of automated services.
  */
 
 export const BILLING_PERIODS = {
@@ -16,45 +16,41 @@ export const plans = [
   {
     id: 'free',
     name: 'Free',
-    description: 'Get started with basic tools',
+    description: 'Explore the artist dashboard',
     monthlyPrice: 0,
     yearlyPrice: 0,
     features: [
       'Basic AI chat access',
-      'Limited song analysis (5/month)',
-      'Basic beat creation',
-      'Community support',
-      'Standard audio quality'
+      'Starter AI usage allowance',
+      'Artist workspace',
+      'Department-led guidance'
     ],
     limitations: [
-      'Limited AI interactions',
-      'Basic features only',
-      'No priority support'
+      'Account usage limits apply',
+      'Beta tools vary by release stage',
+      'Distribution not included'
     ],
-    cta: 'Start Free',
+    cta: 'Explore Free',
     popular: false,
     color: 'gray'
   },
   {
     id: 'creator',
     name: 'Creator',
-    description: 'Enhanced tools for serious artists',
+    description: 'More room for your creative work',
     monthlyPrice: 29,
-    yearlyPrice: 290, // $24.17/mo - saves ~$58/year (17%)
+    yearlyPrice: 290,
     features: [
-      'Enhanced AI interactions',
-      'Unlimited song analysis',
-      'Advanced beat creation',
-      'Basic marketing tools',
-      'Email support',
-      'HD audio processing',
-      'Basic contract review'
+      'Higher AI usage allowance',
+      'More workspace capacity',
+      'Creative planning guidance',
+      'Campaign planning guidance'
     ],
     limitations: [
-      'Limited marketing automation',
-      'Basic analytics'
+      'Account usage limits apply',
+      'No guaranteed automated outreach'
     ],
-    cta: 'Go Creator',
+    cta: 'Explore Creator',
     popular: false,
     color: 'cyan',
     stripeMonthlyPriceId: 'STRIPE_CREATOR_MONTHLY_PRICE_ID',
@@ -63,21 +59,20 @@ export const plans = [
   {
     id: 'professional',
     name: 'Professional',
-    description: 'Complete creative suite',
+    description: 'A higher-capacity artist workspace',
     monthlyPrice: 49,
-    yearlyPrice: 490, // $40.83/mo - saves ~$98/year (17%)
+    yearlyPrice: 490,
     features: [
-      'Unlimited AI access',
-      'All creative tools',
-      'Advanced marketing suite',
-      'Priority support',
-      'Professional audio quality',
-      'Full contract analysis',
-      'Industry network access',
-      'Revenue optimization tools'
+      'Higher AI usage allowance than Creator',
+      'More workspace capacity than Creator',
+      'Creative and release planning',
+      'Department-led feedback'
     ],
-    limitations: [],
-    cta: 'Go Pro',
+    limitations: [
+      'Not unlimited AI usage',
+      'Beta tool availability applies'
+    ],
+    cta: 'Explore Pro',
     popular: true,
     color: 'orange',
     stripeMonthlyPriceId: 'STRIPE_PROFESSIONAL_MONTHLY_PRICE_ID',
@@ -86,21 +81,20 @@ export const plans = [
   {
     id: 'label',
     name: 'Label',
-    description: 'Everything + all apps',
+    description: 'Room for a larger creative workload',
     monthlyPrice: 79,
-    yearlyPrice: 790, // $65.83/mo - saves ~$158/year (17%)
+    yearlyPrice: 790,
     features: [
-      'Everything in Professional',
-      'All premium apps included',
-      'Advanced analytics dashboard',
-      'Multi-artist management',
-      'White-label options',
-      'API access',
-      'Custom integrations',
-      'Dedicated account manager'
+      'Higher AI usage allowance than Professional',
+      'More workspace capacity than Professional',
+      'Creative project planning',
+      'Department-led guidance'
     ],
-    limitations: [],
-    cta: 'Go Label',
+    limitations: [
+      'Account usage limits apply',
+      'No promised white-label or custom integration service'
+    ],
+    cta: 'Explore Label',
     popular: false,
     color: 'purple',
     stripeMonthlyPriceId: 'STRIPE_LABEL_MONTHLY_PRICE_ID',
@@ -109,21 +103,20 @@ export const plans = [
   {
     id: 'legend',
     name: 'Legend',
-    description: '24-hour agent activity',
+    description: 'The highest-capacity plan',
     monthlyPrice: 99,
-    yearlyPrice: 990, // $82.50/mo - saves ~$198/year (17%)
+    yearlyPrice: 990,
     features: [
-      'Everything in Label',
-      '24/7 AI agent activity',
-      'Unlimited usage all departments',
-      'Real-time market monitoring',
-      'Instant opportunity alerts',
-      'Premium industry connections',
-      'Exclusive beta features',
-      'Direct line to development team'
+      'Unlimited AI runs on an active Legend plan',
+      'Expanded workspace capacity',
+      'Creative and campaign planning',
+      'Department-led guidance'
     ],
-    limitations: [],
-    cta: 'Become Legend',
+    limitations: [
+      'Beta tool availability applies',
+      'Unattended agent activity is not promised'
+    ],
+    cta: 'Explore Legend',
     popular: false,
     color: 'yellow',
     stripeMonthlyPriceId: 'STRIPE_LEGEND_MONTHLY_PRICE_ID',
